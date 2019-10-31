@@ -26,8 +26,6 @@ To deploy this application on heroku, run the following commands in your termina
 `git remote -v` (to check that a heroku remote has been successfully created)
 `git push heroku master`
 
-## Authors
+## Author
 
-* **Jonathan Patterson** - https://github.com/Jonpatt92
-* **Mary Lang** - https://github.com/mcat56
-* **Rachel Lew** - https://github.com/rlew421
+**Mary Lang** - https://github.com/mcat56
