@@ -24,7 +24,7 @@ describe 'ship order' do
         click_link 'Ship Order'
       end
     end
-    
+
     @order_1.reload
 
     within "#packaged" do

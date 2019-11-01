@@ -19,10 +19,10 @@
     <p>Quantity Ordered: <%= item_order.quantity %></p>
     <% if item_order.quantity <= item_order.item.inventory && item_order.status == 'pending' %>
       <%= link_to 'Fulfill', "/merchant/item_orders/#{item_order.id}/fulfill"  %>
-    <% elsif item_order.quantity > item_order.item.inventory %>
-      <p>Item cannot be fulfilled due to lack of inventory.</p>
     <% elsif item_order.status == 'fulfilled' %>
       <p>Item already fulfilled.</p>
+    <% elsif item_order.quantity > item_order.item.inventory %>
+      <p>Item cannot be fulfilled due to lack of inventory.</p>
     <% end  %>
   </section>
 <% end %>

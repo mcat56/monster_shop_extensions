@@ -37,7 +37,7 @@ class CartController < ApplicationController
       cart.subtract_quantity(params[:item_id])
       if cart.quantity_zero?(params[:item_id])
         flash[:notice] = "#{item.name} has been removed from your cart."
-      end 
+      end
       return remove_item if cart.quantity_zero?(params[:item_id])
     end
     redirect_to "/cart"

@@ -88,6 +88,21 @@ describe 'merchant fulfills part of an order' do
     item_order_2.reload
     item_order_7.reload
     item_order_8.reload
+    tire.reload
+    shifter.reload
+    pull_toy.reload
+    dog_treats.reload
+    frisbee.reload
+    dog_bone.reload
+
+    expect(tire.inventory).to eq(12)
+    expect(shifter.inventory).to eq(20)
+
+    expect(pull_toy.inventory).to eq(12)
+    expect(dog_treats.inventory).to eq(10)
+
+    expect(frisbee.inventory).to eq(23)
+    expect(dog_bone.inventory).to eq(21)
 
     expect(item_order_1.status).to eq('pending')
     expect(item_order_2.status).to eq('fulfilled')
