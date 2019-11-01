@@ -23,10 +23,6 @@ class OrdersController <ApplicationController
           merchant: item.merchant
           })
       end
-      cart.items.each do |item, quantity|
-        new_quantity = item.inventory - quantity
-        item.update_attributes(:inventory => new_quantity)
-      end
       session.delete(:cart)
       flash[:success] = 'Your order has been placed!'
       redirect_to "/profile/orders/#{order.id}"
@@ -38,14 +34,17 @@ class OrdersController <ApplicationController
 
   def destroy
     order = Order.find(params[:order_id])
+    status = order.status
     order.update_attributes(:status => 'cancelled')
 
     order.item_orders.each do |item_order|
       item_order.update_attributes(:status => 0)
 
-      item = Item.find(item_order.item_id)
-      new_quantity = item.inventory + item_order.quantity
-      item.update_attributes(:inventory => new_quantity)
+      if status == 'shipped'
+        item = Item.find(item_order.item_id)
+        new_quantity = item.inventory + item_order.quantity
+        item.update_attributes(:inventory => new_quantity)
+      end 
     end
 
     flash[:success] = 'Your order has been cancelled.'

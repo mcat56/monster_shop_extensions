@@ -43,8 +43,9 @@ describe 'cancel order' do
 
       expect(page).to have_link('Cancel Order')
       expect(order.status).to eq('pending')
-      expect(@tire.inventory).to eq(10)
-      expect(@chain.inventory).to eq(4)
+      expect(@tire.inventory).to eq(12)
+      expect(@chain.inventory).to eq(5)
+
 
       click_link('Cancel Order')
 
@@ -91,8 +92,8 @@ describe 'cancel order' do
 
       expect(page).to have_link('Cancel Order')
       expect(order.status).to eq('packaged')
-      expect(@tire.inventory).to eq(10)
-      expect(@chain.inventory).to eq(4)
+      expect(@tire.inventory).to eq(12)
+      expect(@chain.inventory).to eq(5)
 
       click_link('Cancel Order')
 
