@@ -26,9 +26,6 @@ describe 'ship order' do
     end
 
     @order_1.reload
-    pull_toy.reload
-    
-    expect(pull_toy.inventory).to eq(29)
 
     within "#packaged" do
       expect(page).to_not have_css("#orders-#{@order_1.id}")

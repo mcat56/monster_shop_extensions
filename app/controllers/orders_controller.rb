@@ -40,11 +40,11 @@ class OrdersController <ApplicationController
     order.item_orders.each do |item_order|
       item_order.update_attributes(:status => 0)
 
-      if status == 'shipped'
+      if status == 'packaged'
         item = Item.find(item_order.item_id)
         new_quantity = item.inventory + item_order.quantity
         item.update_attributes(:inventory => new_quantity)
-      end 
+      end
     end
 
     flash[:success] = 'Your order has been cancelled.'
