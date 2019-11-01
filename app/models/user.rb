@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :addresses
   has_many :orders
   belongs_to :merchant, optional: true
 

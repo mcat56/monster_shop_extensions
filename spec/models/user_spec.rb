@@ -4,6 +4,7 @@ describe User do
   describe 'relationships' do
     it { should have_many :orders}
     it { should belong_to(:merchant).optional }
+    it { should have_many :addresses }
   end
   describe 'validations' do
     it { should validate_presence_of :name }

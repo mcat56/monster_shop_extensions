@@ -18,6 +18,12 @@ class UsersController < ApplicationController
   def create
     @new_user = User.new(user_params)
     if @new_user.save
+      @new_user.addresses.create( {
+        address: user_params[:address],
+        city: user_params[:city],
+        state: user_params[:state],
+        zip: user_params[:zip],
+        })
       session[:user_id] = @new_user.id
       redirect_to "/profile/#{@new_user.id}"
       flash[:sucess] = "You have registered successfully! You are now logged in as #{@new_user.name}."
