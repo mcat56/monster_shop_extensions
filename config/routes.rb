@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
+  resources :users do
+    resources :addresses
+  end
+
   resources :reviews, only: [:edit, :update, :destroy]
   resources :orders, only: [:index, :new, :create, :show]
 
@@ -36,12 +40,14 @@ Rails.application.routes.draw do
   get '/profile/:user_id/edit/password', to: 'users#edit'
   patch '/profile/:user_id/password', to: 'users#update'
 
+
   namespace :admin do
     get '/users', to: 'users#index'
     get '/users/:user_id', to: 'users#show'
     get '/users/:user_id/edit', to: 'users#edit'
-    get '/users/:user_id/edit/password', to: 'users#edit'
     put '/users/:user_id', to: 'users#update'
+    # resources :users, except: [:destroy, :new]
+    get '/users/:user_id/edit/password', to: 'users#edit'
     patch '/users/:user_id/password', to: 'users#update'
     get '/users/:user_id/edit_role', to: 'users#edit_role'
     patch '/users/:user_id/upgrade', to: 'users#upgrade'
@@ -59,12 +65,15 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/', to: 'dashboard#show'
+
+    # resources :items
     get '/items', to: 'items#index'
     get '/items/new', to: 'items#new'
     post '/items', to: 'items#create'
     get '/items/:item_id/edit', to: 'items#edit'
     patch '/items/:item_id', to: 'items#update'
     delete '/items/:item_id', to: 'items#destroy'
+
     get '/items/:item_id/deactivate', to: 'items#update_status'
     get '/items/:item_id/activate', to: 'items#update_status'
     get '/orders/:order_id', to: 'orders#show'

@@ -18,6 +18,6 @@
 <p>E-mail: <%= @user.email %></p>
 <p>Role: <%= @user.role.gsub('_', ' ').capitalize %></p>
 
-<%= link_to 'Add an Address', "/profile/#{@user.id}/addresses/new" %>
+<%= link_to 'Add an Address', "/users/#{@user.id}/addresses/new" %>
 <%= link_to "Edit Profile", "/profile/#{@user.id}/edit" %>
 <%= link_to "Edit Password", "/profile/#{@user.id}/edit/password" %>
