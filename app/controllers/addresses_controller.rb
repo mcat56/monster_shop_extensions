@@ -25,6 +25,23 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:user_id])
+    @address = Address.find(params[:id])
+  end
+
+  def update
+    @address = Address.find(params[:id])
+    @address.update(address_params)
+    if @address.save
+      flash[:success] = 'Your address has been updated'
+      redirect_to "/users/#{@address.user.id}/addresses"
+    else
+      flash[:error] = @address.errors.full_messages.to_sentence
+      redirect_to "/users/#{@address.user.id}/addresses/#{@address.id}/edit"
+    end
+  end
+
   private
 
   def address_params
