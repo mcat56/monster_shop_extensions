@@ -14,7 +14,11 @@ class AddressesController < ApplicationController
     else
       flash[:error] = @address.errors.full_messages.to_sentence
       redirect_to "/users/#{user.id}/addresses/new"
-    end 
+    end
+  end
+
+  def show
+    @address = Address.find(params[:id])
   end
 
 
