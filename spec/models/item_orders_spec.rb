@@ -17,7 +17,7 @@ describe ItemOrder, type: :model do
 
   describe 'instance methods' do
     it 'subtotal' do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -37,8 +37,8 @@ describe ItemOrder, type: :model do
       @dog_treats = @brian.items.create(name: "Dog Treats", description: "Pretty good dog treats. My dog liked them.", price: 11, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 25)
       @frisbee = @brian.items.create(name: "Frisbee", description: "Fido and I love playing with this frisbee at the park.", price: 14, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 28)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
-      @user_2 = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user_2 = User.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon')
 
 
       order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)

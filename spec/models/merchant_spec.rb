@@ -28,14 +28,14 @@ describe Merchant, type: :model do
       expect(@meg.enabled?).to eq(false)
 
       @meg.enable
-      
+
       @meg.reload
       expect(@meg.enabled?).to eq(true)
     end
 
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
 
       order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
@@ -57,7 +57,7 @@ describe Merchant, type: :model do
     end
 
     it 'distinct_cities' do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       chain = @meg.items.create(name: "Chain", description: "It'll never break!", price: 40, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 22)
       order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)

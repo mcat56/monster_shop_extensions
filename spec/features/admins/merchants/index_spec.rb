@@ -1,11 +1,5 @@
 require 'rails_helper'
-# As an admin user
-# When I visit the merchant's index page at "/merchants"
-# I see all merchants in the system
-# Next to each merchant's name I see their city and state
-# The merchant's name is a link to their Merchant Dashboard at routes such as "/admin/merchants/5"
-# I see a "disable" button next to any merchants who are not yet disabled
-# I see an "enable" button next to any merchants whose accounts are disabled
+
 
 describe 'As an admin, when I visit the merchant index page.' do
   before(:each) do
@@ -23,7 +17,7 @@ describe 'As an admin, when I visit the merchant index page.' do
 
     @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, status: 'disabled')
 
-    admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+    admin = User.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
 
     visit '/'
     click_link 'Login'
@@ -46,7 +40,7 @@ describe 'As an admin, when I visit the merchant index page.' do
       @pawty_city.reload
       expect(@pawty_city.status).to eq('disabled')
     end
-    
+
     expect(current_path).to eq('/merchants')
     expect(page).to have_content("#{@pawty_city.name} is now disabled.")
 
@@ -65,7 +59,7 @@ describe 'As an admin, when I visit the merchant index page.' do
       @a_latte_fun.reload
       expect(@a_latte_fun.status).to eq('enabled')
     end
-    
+
     expect(current_path).to eq('/merchants')
     expect(page).to have_content("#{@a_latte_fun.name} is now enabled.")
 

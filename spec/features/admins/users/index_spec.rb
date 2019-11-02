@@ -2,21 +2,21 @@ require 'rails_helper'
 
 RSpec.describe "Admin Users Index" do
   before(:each) do
-    @admin = User.create!(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
-    @user_1 = User.create!(name: 'Richy Rich', address: '102 Main St', city: 'NY', state: 'New York', zip: '10221', email: "young_money99@gmail.com", password: "momoneymoprobz")
-    @user_2 = User.create!(name: 'Alice Wonder', address: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221', email: "alice_in_the_sky@gmail.com", password: "cheshirecheezin")
-    @user_3 = User.create!(name: 'Sonny Moore', address: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221', email: "its_always_sonny@gmail.com", password: "beatz")
+    @admin = User.create!(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+    @user_1 = User.create!(name: 'Richy Rich', email: "young_money99@gmail.com", password: "momoneymoprobz")
+    @user_2 = User.create!(name: 'Alice Wonder', email: "alice_in_the_sky@gmail.com", password: "cheshirecheezin")
+    @user_3 = User.create!(name: 'Sonny Moore', email: "its_always_sonny@gmail.com", password: "beatz")
 
     suite_deal= Merchant.create(name: "Suite Deal Home Goods", address: '1280 Park Ave', city: 'Denver', state: 'CO', zip: "80202")
     knit_wit = Merchant.create(name: "Knit Wit", address: '123 Main St.', city: 'Denver', state: 'CO', zip: "80218")
     a_latte_fun = Merchant.create(name: "A Latte Fun", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: "80210")
 
     dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203)
-    @merchant_employee = dog_shop.users.create!(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1)
+    @merchant_employee = dog_shop.users.create!(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1)
 
 
     pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-    @merchant_admin = pawty_city.users.create!(name: 'Monicahh', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'anothercleaner@gmail.com', password: 'monmon', role: 2)
+    @merchant_admin = pawty_city.users.create!(name: 'Monicahh', email: 'anothercleaner@gmail.com', password: 'monmon', role: 2)
 
 
     visit '/'
@@ -39,10 +39,6 @@ RSpec.describe "Admin Users Index" do
     within "#users-#{@user_1.id}" do
       expect(page).to have_link(@user_1.name)
       expect(page).to have_content(@user_1.role.gsub('_', ' ').capitalize)
-      expect(page).to have_content(@user_1.address)
-      expect(page).to have_content(@user_1.city)
-      expect(page).to have_content(@user_1.state)
-      expect(page).to have_content(@user_1.zip)
       expect(page).to have_content(@user_1.email)
       expect(page).to have_link("Edit Profile")
       expect(page).to have_link("Edit Password")
@@ -75,10 +71,6 @@ RSpec.describe "Admin Users Index" do
       expect(page).to have_link(@user_2.name)
       expect(page).to have_content(@user_2.created_at.to_date)
       expect(page).to have_content(@user_2.role.gsub('_', ' ').capitalize)
-      expect(page).to have_content(@user_2.address)
-      expect(page).to have_content(@user_2.city)
-      expect(page).to have_content(@user_2.state)
-      expect(page).to have_content(@user_2.zip)
       expect(page).to have_content(@user_2.email)
       expect(page).to have_link("Edit Profile")
       expect(page).to have_link("Edit Password")
@@ -111,10 +103,6 @@ RSpec.describe "Admin Users Index" do
       expect(page).to have_link(@user_3.name)
       expect(page).to have_content(@user_3.created_at.to_date)
       expect(page).to have_content(@user_3.role.gsub('_', ' ').capitalize)
-      expect(page).to have_content(@user_3.address)
-      expect(page).to have_content(@user_3.city)
-      expect(page).to have_content(@user_3.state)
-      expect(page).to have_content(@user_3.zip)
       expect(page).to have_content(@user_3.email)
       expect(page).to have_link("Edit Profile")
       expect(page).to have_link("Edit Password")
@@ -147,10 +135,6 @@ RSpec.describe "Admin Users Index" do
       expect(page).to have_link(@merchant_employee.name)
       expect(page).to have_content(@merchant_employee.created_at.to_date)
       expect(page).to have_content(@merchant_employee.role.gsub('_', ' ').capitalize)
-      expect(page).to have_content(@merchant_employee.address)
-      expect(page).to have_content(@merchant_employee.city)
-      expect(page).to have_content(@merchant_employee.state)
-      expect(page).to have_content(@merchant_employee.zip)
       expect(page).to have_content(@merchant_employee.email)
       expect(page).to have_link("Edit Profile")
       expect(page).to have_link("Edit Password")
@@ -183,10 +167,6 @@ RSpec.describe "Admin Users Index" do
       expect(page).to have_link(@merchant_admin.name)
       expect(page).to have_content(@merchant_admin.created_at.to_date)
       expect(page).to have_content(@merchant_admin.role.gsub('_', ' ').capitalize)
-      expect(page).to have_content(@merchant_admin.address)
-      expect(page).to have_content(@merchant_admin.city)
-      expect(page).to have_content(@merchant_admin.state)
-      expect(page).to have_content(@merchant_admin.zip)
       expect(page).to have_content(@merchant_admin.email)
       expect(page).to have_link("Edit Profile")
       expect(page).to have_link("Edit Password")

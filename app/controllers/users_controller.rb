@@ -16,14 +16,20 @@ class UsersController < ApplicationController
   end
 
   def create
-    @new_user = User.new(user_params)
+    @address = Address.create( {
+      address: user_params[:address],
+      city: user_params[:city],
+      state: user_params[:state],
+      zip: user_params[:zip],
+      })
+    @new_user = User.new( {
+      name: user_params[:name],
+      email: user_params[:email],
+      password: user_params[:password],
+      password_confirmation: user_params[:password_confirmation]
+      })
     if @new_user.save
-      @new_user.addresses.create( {
-        address: user_params[:address],
-        city: user_params[:city],
-        state: user_params[:state],
-        zip: user_params[:zip],
-        })
+      @new_user.addresses << @address
       session[:user_id] = @new_user.id
       redirect_to "/profile/#{@new_user.id}"
       flash[:sucess] = "You have registered successfully! You are now logged in as #{@new_user.name}."

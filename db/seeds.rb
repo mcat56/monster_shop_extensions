@@ -19,12 +19,13 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
-user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
-user_2 = User.create(name: 'Leslie', address: '252 Pawnee Avenue', city: 'Pawnee', state: 'Indiana', zip: '80503', email: 'leslieknope@gmail.com', password: 'waffles')
-
-merchant_employee = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1, merchant: dog_shop)
-merchant_admin = User.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'redross', password: 'emily', role: 2, merchant: bike_shop)
-admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'admin@gmail.com', password: 'admin', role: 3)
+user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+user_2 = User.create(name: 'Leslie', email: 'leslieknope@gmail.com', password: 'waffles')
+address_1 = Address.create(address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+address_2 = Address.create(address: '252 Pawnee Avenue', city: 'Pawnee', state: 'Indiana', zip: '80503')
+merchant_employee = User.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1, merchant: dog_shop)
+merchant_admin = User.create(name: 'Ross', email: 'redross', password: 'emily', role: 2, merchant: bike_shop)
+admin = User.create(name: 'Monica', email: 'admin@gmail.com', password: 'admin', role: 3)
 
 
 suite_deal= Merchant.create(name: "Suite Deal Home Goods", address: '1280 Park Ave', city: 'Denver', state: 'CO', zip: "80202")

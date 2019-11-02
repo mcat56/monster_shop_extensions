@@ -42,7 +42,7 @@ describe Item, type: :model do
     end
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2, merchant: @bike_shop)
@@ -52,7 +52,7 @@ describe Item, type: :model do
 
   describe "class methods" do
     it "top five items" do
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
@@ -93,7 +93,7 @@ describe Item, type: :model do
     end
 
     it "bottom five items" do
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)

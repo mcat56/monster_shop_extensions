@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant show page', type: :feature do
   describe 'As a user' do
     before :each do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)

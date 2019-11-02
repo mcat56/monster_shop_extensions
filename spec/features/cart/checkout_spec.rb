@@ -27,7 +27,8 @@ RSpec.describe 'Cart show' do
     end
     it 'User can checkout if they are logged in' do
       visit '/'
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      
       click_link 'Login'
 
       fill_in :email, with: user.email
@@ -47,7 +48,7 @@ RSpec.describe 'Cart show' do
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do
       visit '/'
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
       click_link 'Login'
 
       fill_in :email, with: user.email

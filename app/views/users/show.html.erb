@@ -4,12 +4,20 @@
   <%= link_to 'My Orders', "/profile/orders" %>
 <% end %>
 
-<p>Address: <%= @user.address %></p>
-<p>City: <%= @user.city %></p>
-<p>State: <%= @user.state %></p>
-<p>Zip Code: <%= @user.zip %></p>
-<p>E-mail: <%= @user.email %></p>
-<p>Role: <%= @user.role.gsub('_', ' ').capitalize %></p><hr>
 
+<% @user.addresses.each do |address| %>
+  <section id="address-<%= address.id %>">
+    <h2><%= address.nickname %></h2>
+    <p>Address: <%= address.address %></p>
+    <p>City: <%= address.city %></p>
+    <p>State: <%= address.state %></p>
+    <p>Zip Code: <%= address.zip %></p>
+  </section>
+<% end %>
+
+<p>E-mail: <%= @user.email %></p>
+<p>Role: <%= @user.role.gsub('_', ' ').capitalize %></p>
+
+<%= link_to 'Add an Address', "/profile/#{@user.id}/addresses/new" %>
 <%= link_to "Edit Profile", "/profile/#{@user.id}/edit" %>
 <%= link_to "Edit Password", "/profile/#{@user.id}/edit/password" %>

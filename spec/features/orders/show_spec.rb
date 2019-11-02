@@ -19,7 +19,7 @@ RSpec.describe("Order Creation") do
       click_on "Add To Cart"
 
       visit '/'
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
       click_link 'Login'
 
       fill_in :email, with: @user.email

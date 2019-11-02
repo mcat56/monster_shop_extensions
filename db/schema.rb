@@ -88,10 +88,6 @@ ActiveRecord::Schema.define(version: 20191101174854) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false

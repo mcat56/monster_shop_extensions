@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'As a registered user I am sent to my orders page after creating an order ' do
   it 'displays all of my orders' do
     visit '/'
-    @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+    @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
     click_link 'Login'
 
     fill_in :email, with: @user.email
