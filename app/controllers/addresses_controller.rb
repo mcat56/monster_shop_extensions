@@ -1,5 +1,9 @@
 class AddressesController < ApplicationController
 
+  def index
+    @user = User.find(params[:user_id])
+  end
+
   def new
     @user = User.find(params[:user_id])
     @address = Address.new
@@ -20,9 +24,6 @@ class AddressesController < ApplicationController
   def show
     @address = Address.find(params[:id])
   end
-
-
-
 
   private
 

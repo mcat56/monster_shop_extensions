@@ -4,8 +4,6 @@ describe 'a user can see an address show page' do
   before(:each) do
     @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
     @address_1 = @user.addresses.create(address: '234 Orange Ave', city: 'Orangeburg', state: 'NY', zip: '10962')
-    @address_2 = @user.addresses.create(nickname: 'work', address: '65 Work Street', city: 'Orangeburg', state: 'NY', zip: '10962')
-
 
     visit '/'
     click_link 'Login'

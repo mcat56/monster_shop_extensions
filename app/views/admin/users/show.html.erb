@@ -2,6 +2,7 @@
   <%= link_to "#{@user.name}'s Orders'", "/profile/orders" %>
 <% end %>
 
+<!-- <  %= link_to "#{@user.name}'s Addresses'", "/admin/users/#{@user.id}/addresses" %> -->
 
 <% @user.addresses.each do |address| %>
   <section id="address-<%= address.id %>">
