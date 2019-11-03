@@ -57,17 +57,17 @@ describe 'user can delete addresses' do
 
     click_link 'Delete Address'
 
-    click_link 'Update with New Address'
+    # click_link 'Update with New Address'
+    #
+    # fill_in :name, with: 'Patti'
+    # fill_in :street, with: '957 Portland Ave'
+    # fill_in :city, with: 'Portland'
+    # fill_in :state, with: 'ME'
+    # fill_in :zip, with: '04019'
+    # click_button 'Update Order'
 
-    fill_in :name, with: 'Patti'
-    fill_in :street, with: '957 Portland Ave'
-    fill_in :city, with: 'Portland'
-    fill_in :state, with: 'ME'
-    fill_in :zip, with: '04019'
-    click_button 'Update Order'
 
-    expect(current_path).to eq("/profile/#{@user.id}")
-    expect(page).to have_content('Address deleted')
-    expect(page).to_not have_css("#address-#{@address_3.id}")
+    expect(current_path).to eq("/profile/orders")
+    expect(page).to have_content('You must update pending orders before deleting this address')
   end
 end

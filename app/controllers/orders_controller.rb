@@ -12,7 +12,18 @@ class OrdersController <ApplicationController
   end
 
   def update
-    binding.pry
+    @order = Order.find(params[:id])
+
+    if order_params.has_key?('zip')
+      @order.update(order_params)
+    else
+      @address = Address.find(order_params[:address])
+      order_hash = create_order_hash
+      @order.update(order_hash)
+    end
+
+    flash[:success] = 'Order information updated'
+    redirect_to '/profile/orders'
   end
 
   def show
@@ -66,9 +77,6 @@ class OrdersController <ApplicationController
     redirect_to "/profile/#{session[:user_id]}"
   end
 
-  def update
-
-  end
 
   private
 

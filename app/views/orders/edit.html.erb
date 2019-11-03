@@ -1,11 +1,7 @@
 <h1>Update Shipping Address</h1>
 
-
-<% if !params[:address] %>
-  <p><%= link_to 'Update with Existing Address', "/orders/:order_id/edit?address=existing" %></p>
-  <p><%= link_to 'Update with New Address',  "/orders/:order_id/edit?address=new" %></p>
-<% elsif params[:address] == 'new' && params[:order_id]%>
-  <%= render partial: 'new_address', locals: { path: "/orders/#{params[:order_id]}", method: :patch, button: 'Update Order'} %>
+<% if params[:address] == 'existing' %>
+  <%= render partial: 'select_address', locals: { path: "/orders/#{params[:id]}", method: :patch, button: 'Update Order' } %>
 <% else %>
-  <%= render partial: 'select_address', locals: { path: "/orders/#{params[:order_id]}", method: :patch, button: 'Update Order' } %>
+  <%= render partial: 'new_address', locals: { path: "/orders/#{params[:id]}", method: :patch, button: 'Update Order'} %>
 <% end %>

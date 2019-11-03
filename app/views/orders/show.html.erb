@@ -60,5 +60,7 @@
 </section>
 
 <% if @order.status == 'pending' || @order.status == 'packaged' %>
+  <%= link_to 'Update with Existing Address', "/orders/#{@order.id}/edit?address=existing" %>
+  <%= link_to 'Update with New Address',  "/orders/#{@order.id}/edit?address=new" %>
   <%= link_to 'Cancel Order', "/cancel/#{@order.id}", method: :delete  %>
 <% end %>

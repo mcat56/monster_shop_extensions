@@ -5,7 +5,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :street
       t.string :city
       t.string :state
-      t.integer :zip
+      t.string :zip
 
       t.timestamps
     end
