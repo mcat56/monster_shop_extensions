@@ -28,6 +28,7 @@ RSpec.describe 'Cart show' do
     it 'User can checkout if they are logged in' do
       visit '/'
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       click_link 'Login'
 
@@ -36,11 +37,9 @@ RSpec.describe 'Cart show' do
       click_button 'Log In'
 
       visit "/cart"
-      click_link "Checkout with New Address"
+      click_link "Checkout with Existing Address"
 
       expect(current_path).to eq("/orders/new")
-
-
     end
 
   end
@@ -49,6 +48,8 @@ RSpec.describe 'Cart show' do
     it 'There is not a link to checkout' do
       visit '/'
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
       click_link 'Login'
 
       fill_in :email, with: user.email
@@ -57,7 +58,7 @@ RSpec.describe 'Cart show' do
 
       visit "/cart"
 
-      expect(page).to_not have_link("Checkout with New Address")
+      expect(page).to_not have_link("Checkout with Existing Address")
     end
   end
 

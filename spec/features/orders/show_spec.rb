@@ -20,7 +20,7 @@ RSpec.describe("Order Creation") do
 
       visit '/'
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+      @address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       click_link 'Login'
 
@@ -30,21 +30,12 @@ RSpec.describe("Order Creation") do
 
 
       visit "/cart"
-      click_on "Checkout with New Address"
+      click_on "Checkout with Existing Address"
     end
 
     it 'shows all order information' do
-      name = "Bert"
-      street = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
 
-      fill_in :name, with: name
-      fill_in :street, with: street
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
 
       click_button "Create Order"
 
@@ -56,11 +47,11 @@ RSpec.describe("Order Creation") do
       visit "/profile/orders/#{new_order.id}"
 
       within '.shipping-address' do
-        expect(page).to have_content(name)
-        expect(page).to have_content(street)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip)
+        expect(page).to have_content('Patti')
+        expect(page).to have_content(@address_1.street)
+        expect(page).to have_content(@address_1.city)
+        expect(page).to have_content(@address_1.state)
+        expect(page).to have_content(@address_1.zip)
       end
 
       within "#item-#{@paper.id}" do

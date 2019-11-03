@@ -6,6 +6,7 @@ describe 'cancel order' do
     before(:each) do
       visit '/'
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       click_link 'Login'
 
@@ -26,14 +27,9 @@ describe 'cancel order' do
       visit "/items/#{@chain.id}"
       click_button 'Add To Cart'
       visit "/cart"
-      click_on "Checkout with New Address"
+      click_on "Checkout with Existing Address"
 
-      fill_in :name, with: 'Bert'
-      fill_in :street, with: '123 Sesame St.'
-      fill_in :city, with: 'NYC'
-      fill_in :state, with: 'New York'
-      fill_in :zip, with: 10001
-
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
       click_button "Create Order"
 
       order = Order.last
@@ -73,14 +69,10 @@ describe 'cancel order' do
       visit "/items/#{@chain.id}"
       click_button 'Add To Cart'
       visit "/cart"
-      click_on "Checkout with New Address"
 
-      fill_in :name, with: 'Bert'
-      fill_in :street, with: '123 Sesame St.'
-      fill_in :city, with: 'NYC'
-      fill_in :state, with: 'New York'
-      fill_in :zip, with: 10001
+      click_on "Checkout with Existing Address"
 
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
       click_button "Create Order"
 
       order = Order.last

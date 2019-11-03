@@ -53,8 +53,10 @@
   <% if !current_user %>
     <h4>You must  <%= link_to 'login', '/login' %> or <%= link_to 'register', '/register' %>  to check out.</h4>
   <% else %>
+    <% if current_user.addresses.empty? %>
+      <p>You cannot checkout without an existing address. Click link to <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new" %></p>
+    <% end %>
     <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
-    <p><%= link_to 'Checkout with New Address',  "/orders/new?address=new" %></p>
   <% end %>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>

@@ -17,6 +17,9 @@ RSpec.describe("New Order Page") do
       click_on "Add To Cart"
       visit '/'
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user_2 = User.create(name: 'Marcel', email: 'monkey34@gmail.com', password: 'bananas')
+      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
       click_link 'Login'
 
       fill_in :email, with: @user.email
@@ -27,7 +30,7 @@ RSpec.describe("New Order Page") do
     it "I see all the information about my current cart" do
       visit "/cart"
 
-      click_on "Checkout with New Address"
+      click_on "Checkout with Existing Address"
 
       within "#order-item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
@@ -56,32 +59,11 @@ RSpec.describe("New Order Page") do
       expect(page).to have_content("Total: $142")
     end
 
-    it "I see a form where I can enter my shipping info" do
+    it "I see a form where I can select my shipping info" do
       visit "/cart"
-      click_on "Checkout with New Address"
+      click_on "Checkout with Existing Address"
 
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:street)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
-      expect(page).to have_button("Create Order")
-    end
-    it 'I can create a new order' do
-      visit "/cart"
-      click_on "Checkout with New Address"
-
-      name = "Bert"
-      street = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :street, with: street
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
 
       click_button "Create Order"
 
@@ -91,26 +73,23 @@ RSpec.describe("New Order Page") do
       expect(page).to have_link('Cart: 0')
       expect(page).to have_content('Your order has been placed!')
   end
-    it 'i cant create order if info not filled out' do
+    it 'I cant create order without an address' do
+      click_link 'Log Out'
+      click_link 'Login'
+      fill_in :email, with: @user_2.email
+      fill_in :password, with: @user_2.password
+      click_button 'Log In'
+
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+
       visit "/cart"
-      click_on "Checkout with New Address"
 
-      name = ""
-      street = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
+      expect(page).to have_content('You cannot checkout without an existing address. Click link to Add Address')
 
-      fill_in :name, with: name
-      fill_in :street, with: street
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      click_link('Add Address')
 
-      click_button "Create Order"
-
-      expect(page).to have_content("Please complete address form to create an order.")
-      expect(page).to have_button("Create Order")
+      expect(current_path).to eq("/users/#{@user_2.id}/addresses/new")
     end
   end
 end
