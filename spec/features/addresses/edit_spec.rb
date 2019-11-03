@@ -63,4 +63,13 @@ describe 'a user can edit an address from the address show page' do
     expect(page).to have_content("Street can't be blank and City can't be blank")
     expect(current_path).to eq("/users/#{@user.id}/addresses/#{@address_1.id}/edit")
   end
+  it 'address cannot be changed if shipped order pending with that address' do
+    order = @user.orders.create(name: 'Martha', street: '21 Jump Street', city: 'NY', state: 'NY', zip: '10012', status: 'shipped', address: @address_1)
+
+    within "#address-#{@address_1.id}" do
+      click_link "#{@address_1.nickname}"
+    end
+
+    expect(page).to_not have_link('Update Address')
+  end
 end
