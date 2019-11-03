@@ -42,6 +42,15 @@ class AddressesController < ApplicationController
     end
   end
 
+  def destroy
+    address = Address.find(params[:id])
+    user = address.user
+    address.destroy
+    flash[:success] = 'Address deleted'
+
+    redirect_to "/profile/#{user.id}"
+  end
+
   private
 
   def address_params

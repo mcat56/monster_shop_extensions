@@ -28,7 +28,7 @@ RSpec.describe 'Cart show' do
     it 'User can checkout if they are logged in' do
       visit '/'
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-      
+
       click_link 'Login'
 
       fill_in :email, with: user.email
@@ -36,7 +36,7 @@ RSpec.describe 'Cart show' do
       click_button 'Log In'
 
       visit "/cart"
-      click_link "Checkout"
+      click_link "Checkout with New Address"
 
       expect(current_path).to eq("/orders/new")
 
@@ -57,7 +57,7 @@ RSpec.describe 'Cart show' do
 
       visit "/cart"
 
-      expect(page).to_not have_link("Checkout")
+      expect(page).to_not have_link("Checkout with New Address")
     end
   end
 

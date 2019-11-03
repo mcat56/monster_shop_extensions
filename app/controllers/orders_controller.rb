@@ -5,6 +5,7 @@ class OrdersController <ApplicationController
   end
 
   def new
+    @order = Order.new
   end
 
   def show
@@ -13,6 +14,8 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
+    @addresses = user.addresses
+    @addresses += [['Other', -1]]
     order = user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
@@ -50,7 +53,6 @@ class OrdersController <ApplicationController
     flash[:success] = 'Your order has been cancelled.'
     redirect_to "/profile/#{session[:user_id]}"
   end
-
 
   private
 

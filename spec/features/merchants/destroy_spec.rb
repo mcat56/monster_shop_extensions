@@ -65,7 +65,7 @@ RSpec.describe "As an Admin" do
       click_on "Add To Cart"
 
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       name = "Bert"
       address = "123 Sesame St."

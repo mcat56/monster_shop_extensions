@@ -1,0 +1,19 @@
+<h2>Shipping Info:</h2>
+<%= form_tag "/orders", method: :create do %>
+  <%= label_tag :name %>
+  <%= select_tag :name, options_from_collection_for_select(current_user.addresses, 'name', 'name') %>
+
+  <%= label_tag :address %>
+  <%= select_tag :address, options_from_collection_for_select(current_user.addresses, 'address', 'address')  %>
+
+  <%= label_tag :city %>
+  <%= select_tag :city, options_from_collection_for_select(current_user.addresses, 'city', 'city') %>
+
+  <%= label_tag :state %>
+  <%= select_tag :state, options_from_collection_for_select(current_user.addresses, 'state', 'state')  %>
+
+  <%= label_tag :zip %>
+  <%= select_tag :zip, options_from_collection_for_select(current_user.addresses, 'zip', 'zip') %>
+
+  <%= submit_tag 'Create Order' %>
+<% end %>

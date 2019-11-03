@@ -20,6 +20,8 @@ RSpec.describe("Order Creation") do
 
       visit '/'
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = @user.addresses.create(address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
       click_link 'Login'
 
       fill_in :email, with: @user.email
@@ -28,7 +30,7 @@ RSpec.describe("Order Creation") do
 
 
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
     end
 
     it 'shows all order information' do

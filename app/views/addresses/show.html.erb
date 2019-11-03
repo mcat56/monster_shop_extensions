@@ -4,3 +4,6 @@
 <p>City: <%= @address.city %></p>
 <p>State: <%= @address.state %></p>
 <p>Zip: <%= @address.zip %></p>
+
+<%= link_to 'Update Address', "/users/#{@address.user.id}/addresses/#{@address.id}/edit" %>
+<%= link_to 'Delete Address', "/users/#{@address.user.id}/addresses/#{@address.id}", method: :delete %>

@@ -14,8 +14,10 @@ describe 'a user can edit an address from the address show page' do
   it 'clicks edit link and fills out form' do
 
     within "#address-#{@address_1.id}" do
-      click_link 'Edit Address'
+      click_link "#{@address_1.nickname}"
     end
+
+    click_link 'Update Address'
 
     expect(current_path).to eq("/users/#{@user.id}/addresses/#{@address_1.id}/edit")
 
@@ -46,8 +48,10 @@ describe 'a user can edit an address from the address show page' do
   it 'user cannot update address without filling out all fields' do
 
     within "#address-#{@address_1.id}" do
-      click_link 'Edit Address'
+      click_link "#{@address_1.nickname}"
     end
+
+    click_link 'Update Address'
 
     fill_in 'Nickname', with: 'home'
     fill_in 'Address', with: ''

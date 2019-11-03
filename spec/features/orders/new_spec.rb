@@ -27,7 +27,7 @@ RSpec.describe("New Order Page") do
     it "I see all the information about my current cart" do
       visit "/cart"
 
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       within "#order-item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
@@ -58,7 +58,7 @@ RSpec.describe("New Order Page") do
 
     it "I see a form where I can enter my shipping info" do
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       expect(page).to have_field(:name)
       expect(page).to have_field(:address)
@@ -69,7 +69,7 @@ RSpec.describe("New Order Page") do
     end
     it 'I can create a new order' do
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       name = "Bert"
       address = "123 Sesame St."
@@ -93,7 +93,7 @@ RSpec.describe("New Order Page") do
   end
     it 'i cant create order if info not filled out' do
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       name = ""
       address = "123 Sesame St."

@@ -26,7 +26,7 @@ describe 'cancel order' do
       visit "/items/#{@chain.id}"
       click_button 'Add To Cart'
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       fill_in :name, with: 'Bert'
       fill_in :address, with: '123 Sesame St.'
@@ -73,7 +73,7 @@ describe 'cancel order' do
       visit "/items/#{@chain.id}"
       click_button 'Add To Cart'
       visit "/cart"
-      click_on "Checkout"
+      click_on "Checkout with New Address"
 
       fill_in :name, with: 'Bert'
       fill_in :address, with: '123 Sesame St.'
