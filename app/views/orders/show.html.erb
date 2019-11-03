@@ -60,7 +60,10 @@
 </section>
 
 <% if @order.status == 'pending' || @order.status == 'packaged' %>
-  <%= link_to 'Update with Existing Address', "/orders/#{@order.id}/edit?address=existing" %>
-  <%= link_to 'Update with New Address',  "/orders/#{@order.id}/edit?address=new" %>
+  <% if current_user.addresses.nil? %>
+    <p>Cannot update order without an existing address. Click to  <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new"  %>   </p>
+  <% else %>
+    <%= link_to 'Update with Existing Address', "/orders/#{@order.id}/edit?address=existing" %>
+  <% end %>
   <%= link_to 'Cancel Order', "/cancel/#{@order.id}", method: :delete  %>
 <% end %>

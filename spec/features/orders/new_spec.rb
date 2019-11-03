@@ -72,7 +72,7 @@ RSpec.describe("New Order Page") do
       expect(current_path).to eq("/profile/orders/#{new_order.id}")
       expect(page).to have_link('Cart: 0')
       expect(page).to have_content('Your order has been placed!')
-  end
+    end
     it 'I cant create order without an address' do
       click_link 'Log Out'
       click_link 'Login'

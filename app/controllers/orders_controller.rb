@@ -13,14 +13,9 @@ class OrdersController <ApplicationController
 
   def update
     @order = Order.find(params[:id])
-
-    if order_params.has_key?('zip')
-      @order.update(order_params)
-    else
-      @address = Address.find(order_params[:address])
-      order_hash = create_order_hash
-      @order.update(order_hash)
-    end
+    @address = Address.find(order_params[:address])
+    order_hash = create_order_hash
+    @order.update(order_hash)
 
     flash[:success] = 'Order information updated'
     redirect_to '/profile/orders'
@@ -32,14 +27,10 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
-#
-    if order_params.has_key?('zip')
-      order = user.orders.create(order_params)
-    else
-      @address = Address.find(order_params[:address])
-      order_hash = create_order_hash
-      order = user.orders.create(order_hash)
-    end
+
+    @address = Address.find(order_params[:address])
+    order_hash = create_order_hash
+    order = user.orders.create(order_hash)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -52,9 +43,6 @@ class OrdersController <ApplicationController
       session.delete(:cart)
       flash[:success] = 'Your order has been placed!'
       redirect_to "/profile/orders/#{order.id}"
-    else
-      flash[:notice] = "Please complete address form to create an order."
-      render :new
     end
   end
 
