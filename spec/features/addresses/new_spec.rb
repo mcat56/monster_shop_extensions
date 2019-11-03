@@ -46,6 +46,6 @@ describe 'users can add a new address from their profile page' do
     click_button 'Create Address'
 
     expect(current_path).to eq("/users/#{@user.id}/addresses/new")
-    expect(page).to have_content("Nickname can't be blank and Zip can't be blank")
+    expect(page).to have_content("Zip can't be blank and Nickname can't be blank")
   end
 end

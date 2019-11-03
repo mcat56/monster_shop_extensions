@@ -33,6 +33,8 @@ describe 'user can delete addresses' do
 
     click_link 'Checkout with Existing Address'
 
+
+    select("#{@address_2.nickname}", from: 'nickname')
     select("#{@address_2.address}", from: 'address')
     select("#{@address_2.city}", from: 'city')
     select("#{@address_2.state}", from: 'state')

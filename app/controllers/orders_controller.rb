@@ -14,8 +14,9 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
-    @addresses = user.addresses
-    @addresses += [['Other', -1]]
+    if order_params.has_key?('nickname')
+      binding.pry
+    end
     order = user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
@@ -57,6 +58,6 @@ class OrdersController <ApplicationController
   private
 
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    params.permit(:name, :nickname, :address, :city, :state, :zip)
   end
 end
