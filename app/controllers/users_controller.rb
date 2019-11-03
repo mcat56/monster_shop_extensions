@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def create
     @address = Address.create( {
-      address: user_params[:address],
+      street: user_params[:street],
       city: user_params[:city],
       state: user_params[:state],
       zip: user_params[:zip],
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :city, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+    params.permit(:name, :city, :street, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
 end

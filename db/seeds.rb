@@ -21,8 +21,8 @@ dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it
 
 user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 user_2 = User.create(name: 'Leslie', email: 'leslieknope@gmail.com', password: 'waffles')
-address_1 = Address.create(address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
-address_2 = Address.create(address: '252 Pawnee Avenue', city: 'Pawnee', state: 'Indiana', zip: '80503')
+address_1 = Address.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+address_2 = Address.create(street: '252 Pawnee Avenue', city: 'Pawnee', state: 'Indiana', zip: '80503')
 merchant_employee = User.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1, merchant: dog_shop)
 merchant_admin = User.create(name: 'Ross', email: 'redross', password: 'emily', role: 2, merchant: bike_shop)
 admin = User.create(name: 'Monica', email: 'admin@gmail.com', password: 'admin', role: 3)

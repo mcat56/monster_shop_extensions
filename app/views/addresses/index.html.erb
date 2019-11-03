@@ -3,7 +3,7 @@
 <% @user.addresses.each do |address| %>
   <section id="address-<%= address.id %>">
     <p>Nickname: <%= link_to address.nickname, "/users/#{@user.id}/addresses/#{address.id}" %></p>
-    <p>Street: <%= address.address %>  </p>
+    <p>Street: <%= address.street %>  </p>
     <p>City: <%= address.city %>  </p>
     <p>State: <%= address.state %>  </p>
     <p>Zip: <%= address.zip %>  </p>

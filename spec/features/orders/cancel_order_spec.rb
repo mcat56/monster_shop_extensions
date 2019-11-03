@@ -29,7 +29,7 @@ describe 'cancel order' do
       click_on "Checkout with New Address"
 
       fill_in :name, with: 'Bert'
-      fill_in :address, with: '123 Sesame St.'
+      fill_in :street, with: '123 Sesame St.'
       fill_in :city, with: 'NYC'
       fill_in :state, with: 'New York'
       fill_in :zip, with: 10001
@@ -60,7 +60,7 @@ describe 'cancel order' do
       expect(@tire.inventory).to eq(12)
       expect(@chain.inventory).to eq(5)
 
-      order = @user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
+      order = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
 
       visit "/profile/orders/#{order.id}"
       expect(page).to have_link('Cancel Order')
@@ -76,7 +76,7 @@ describe 'cancel order' do
       click_on "Checkout with New Address"
 
       fill_in :name, with: 'Bert'
-      fill_in :address, with: '123 Sesame St.'
+      fill_in :street, with: '123 Sesame St.'
       fill_in :city, with: 'NYC'
       fill_in :state, with: 'New York'
       fill_in :zip, with: 10001
@@ -135,23 +135,23 @@ describe 'cancel order' do
       expect(@tire.inventory).to eq(12)
       expect(@chain.inventory).to eq(5)
 
-      order = @user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
+      order = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
 
       visit "/profile/orders/#{order.id}"
       expect(page).to have_link('Cancel Order')
     end
     it 'cannot cancel if status is shipped or already cancelled' do
-      order = @user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
+      order = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "packaged")
 
       visit "/profile/orders/#{order.id}"
       expect(page).to have_link('Cancel Order')
 
-      order_2 = @user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "shipped")
+      order_2 = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "shipped")
 
       visit "/profile/orders/#{order_2.id}"
       expect(page).to_not have_link('Cancel Order')
 
-      order_3 = @user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "cancelled")
+      order_3 = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, status: "cancelled")
 
       visit "/profile/orders/#{order_3.id}"
       expect(page).to_not have_link('Cancel Order')

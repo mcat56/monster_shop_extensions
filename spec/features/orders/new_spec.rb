@@ -61,7 +61,7 @@ RSpec.describe("New Order Page") do
       click_on "Checkout with New Address"
 
       expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
+      expect(page).to have_field(:street)
       expect(page).to have_field(:city)
       expect(page).to have_field(:state)
       expect(page).to have_field(:zip)
@@ -72,13 +72,13 @@ RSpec.describe("New Order Page") do
       click_on "Checkout with New Address"
 
       name = "Bert"
-      address = "123 Sesame St."
+      street = "123 Sesame St."
       city = "NYC"
       state = "New York"
       zip = 10001
 
       fill_in :name, with: name
-      fill_in :address, with: address
+      fill_in :street, with: street
       fill_in :city, with: city
       fill_in :state, with: state
       fill_in :zip, with: zip
@@ -96,13 +96,13 @@ RSpec.describe("New Order Page") do
       click_on "Checkout with New Address"
 
       name = ""
-      address = "123 Sesame St."
+      street = "123 Sesame St."
       city = "NYC"
       state = "New York"
       zip = 10001
 
       fill_in :name, with: name
-      fill_in :address, with: address
+      fill_in :street, with: street
       fill_in :city, with: city
       fill_in :state, with: state
       fill_in :zip, with: zip

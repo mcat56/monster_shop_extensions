@@ -1,9 +1,13 @@
 <h1> <%= @address.nickname.capitalize %></h1>
 
-<p>Street: <%= @address.address %></p>
+<p>Street: <%= @address.street %></p>
 <p>City: <%= @address.city %></p>
 <p>State: <%= @address.state %></p>
 <p>Zip: <%= @address.zip %></p>
 
-<%= link_to 'Update Address', "/users/#{@address.user.id}/addresses/#{@address.id}/edit" %>
-<%= link_to 'Delete Address', "/users/#{@address.user.id}/addresses/#{@address.id}", method: :delete %>
+<% if @address.orders.empty? || @address.orders.all? {|order| order.status != 'shipped' } %>
+  <%= link_to 'Update Address', "/users/#{@address.user.id}/addresses/#{@address.id}/edit" %>
+  <%= link_to 'Delete Address', "/users/#{@address.user.id}/addresses/#{@address.id}", method: :delete %>
+<% else %>
+  <p>Address cannot be updated or deleted while shipped orders in progress</p>
+<% end %>

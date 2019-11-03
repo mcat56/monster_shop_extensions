@@ -20,7 +20,7 @@ RSpec.describe("Order Creation") do
 
       visit '/'
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-      address_1 = @user.addresses.create(address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       click_link 'Login'
 
@@ -35,13 +35,13 @@ RSpec.describe("Order Creation") do
 
     it 'shows all order information' do
       name = "Bert"
-      address = "123 Sesame St."
+      street = "123 Sesame St."
       city = "NYC"
       state = "New York"
       zip = 10001
 
       fill_in :name, with: name
-      fill_in :address, with: address
+      fill_in :street, with: street
       fill_in :city, with: city
       fill_in :state, with: state
       fill_in :zip, with: zip
@@ -57,7 +57,7 @@ RSpec.describe("Order Creation") do
 
       within '.shipping-address' do
         expect(page).to have_content(name)
-        expect(page).to have_content(address)
+        expect(page).to have_content(street)
         expect(page).to have_content(city)
         expect(page).to have_content(state)
         expect(page).to have_content(zip)

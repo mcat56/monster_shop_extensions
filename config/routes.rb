@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:edit, :update, :destroy]
-  resources :orders, only: [:index, :new, :create, :show]
+  resources :orders
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"

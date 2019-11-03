@@ -10,7 +10,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '56 Jungle Lane'
+    fill_in :street, with: '56 Jungle Lane'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'New York'
     fill_in :zip, with: '10012'
@@ -60,7 +60,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '953 Sunshine Ave'
+    fill_in :street, with: '953 Sunshine Ave'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'Hawaii'
     fill_in :zip, with: '10012'
@@ -74,7 +74,7 @@ describe 'Register' do
     expect(page).to have_content('Email has already been taken')
 
     expect(find_field('Name').value).to eq('Marcel')
-    expect(find_field('Address').value).to eq('953 Sunshine Ave')
+    expect(find_field('Street').value).to eq('953 Sunshine Ave')
     expect(find_field('City').value).to eq('New York')
     expect(find_field('State').value).to eq('Hawaii')
     expect(find_field('Zip').value).to eq('10012')
@@ -90,7 +90,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '953 Sunshine Ave'
+    fill_in :street, with: '953 Sunshine Ave'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'Hawaii'
     fill_in :zip, with: '10012'
@@ -112,7 +112,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '56 Jungle Lane'
+    fill_in :street, with: '56 Jungle Lane'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'New York'
     fill_in :zip, with: '10012'
@@ -126,7 +126,7 @@ describe 'Register' do
 
     address = new_user.addresses.first
     expect(address.nickname).to eq('home')
-    expect(address.address).to eq('56 Jungle Lane')
+    expect(address.street).to eq('56 Jungle Lane')
     expect(address.city).to eq('New York')
     expect(address.state).to eq('New York')
     expect(address.zip).to eq('10012')

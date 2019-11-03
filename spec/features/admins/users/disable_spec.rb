@@ -14,7 +14,7 @@ describe 'admin can disable a user account' do
     @pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: "80203")
     @pull_toy = @pawty_city.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
-    @order_1 = @user_1.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
+    @order_1 = @user_1.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
 
     @order_1.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 2, merchant: @dog_shop)
     @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 2, merchant: @pawty_city)

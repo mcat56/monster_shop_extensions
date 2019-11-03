@@ -18,9 +18,9 @@ describe 'merchant fulfills part of an order' do
 
     merchant_employee = brian.users.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 1)
 
-    order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-    order_2 = user_2.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-    order_3 = user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+    order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+    order_2 = user_2.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
+    order_3 = user.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
 
     item_order_1 = order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, merchant: meg)
     item_order_2 = order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 20, merchant: brian)

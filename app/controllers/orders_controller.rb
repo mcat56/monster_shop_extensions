@@ -8,16 +8,27 @@ class OrdersController <ApplicationController
     @order = Order.new
   end
 
+  def edit
+  end
+
+  def update
+    binding.pry
+  end
+
   def show
     @order = Order.find(params[:order_id])
   end
 
   def create
     user = User.find(session[:user_id])
-    if order_params.has_key?('nickname')
-      binding.pry
+#
+    if order_params.has_key?('zip')
+      order = user.orders.create(order_params)
+    else
+      @address = Address.find(order_params[:address])
+      order_hash = create_order_hash
+      order = user.orders.create(order_hash)
     end
-    order = user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -55,9 +66,24 @@ class OrdersController <ApplicationController
     redirect_to "/profile/#{session[:user_id]}"
   end
 
+  def update
+
+  end
+
   private
 
+  def create_order_hash
+    order_hash = {}
+    order_hash[:name] = order_params[:name]
+    order_hash[:street] = @address.street
+    order_hash[:city] = @address.city
+    order_hash[:state] = @address.state
+    order_hash[:zip] = @address.zip
+    order_hash[:address_id] = @address.id
+    order_hash
+  end
+
   def order_params
-    params.permit(:name, :nickname, :address, :city, :state, :zip)
+    params.permit(:name, :nickname, :street, :city, :state, :zip, :address)
   end
 end

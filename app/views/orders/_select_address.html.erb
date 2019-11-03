@@ -1,5 +1,5 @@
 <h2>Shipping Info:</h2>
-<%= form_tag "/orders", method: :create do %>
+<%= form_tag path, method: method do %>
   <%= label_tag :name %>
   <%= text_field_tag :name, current_user.name %>
 
@@ -7,5 +7,5 @@
   <%= select_tag :address, options_from_collection_for_select(current_user.addresses, 'id', :get_full_address)  %>
 
 
-  <%= submit_tag 'Create Order' %>
+  <%= submit_tag button %>
 <% end %>

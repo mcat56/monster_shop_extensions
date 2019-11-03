@@ -1,10 +1,10 @@
 <h2>Shipping Info:</h2>
-<%= form_tag "/orders", method: :create do %>
+<%= form_tag path, method: method do %>
   <%= label_tag :name %>
   <%= text_field_tag :name %>
 
-  <%= label_tag :address %>
-  <%= text_field_tag :address %>
+  <%= label_tag :street %>
+  <%= text_field_tag :street %>
 
   <%= label_tag :city %>
   <%= text_field_tag :city %>
@@ -15,5 +15,5 @@
   <%= label_tag :zip %>
   <%= text_field_tag :zip %>
 
-  <%= submit_tag 'Create Order' %>
+  <%= submit_tag button %>
 <% end %>

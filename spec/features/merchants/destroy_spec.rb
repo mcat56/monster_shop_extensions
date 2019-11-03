@@ -68,13 +68,13 @@ RSpec.describe "As an Admin" do
       click_on "Checkout with New Address"
 
       name = "Bert"
-      address = "123 Sesame St."
+      street = "123 Sesame St."
       city = "NYC"
       state = "New York"
       zip = 10001
 
       fill_in :name, with: name
-      fill_in :address, with: address
+      fill_in :street, with: street
       fill_in :city, with: city
       fill_in :state, with: state
       fill_in :zip, with: zip

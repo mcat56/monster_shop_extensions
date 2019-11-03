@@ -17,7 +17,7 @@ describe 'users can add a new address from their profile page' do
     expect(current_path).to eq("/users/#{@user.id}/addresses/new")
 
     fill_in 'Nickname', with: 'work'
-    fill_in 'Address', with: '28 Park Ave'
+    fill_in 'Street', with: '28 Park Ave'
     fill_in 'City', with: 'Philadelphia'
     fill_in 'State', with: 'PA'
     fill_in 'Zip', with: '19103'
@@ -39,7 +39,7 @@ describe 'users can add a new address from their profile page' do
     expect(current_path).to eq("/users/#{@user.id}/addresses/new")
 
     fill_in 'Nickname', with: ''
-    fill_in 'Address', with: '28 Park Ave'
+    fill_in 'Street', with: '28 Park Ave'
     fill_in 'City', with: 'Philadelphia'
     fill_in 'State', with: 'PA'
     fill_in 'Zip', with: ''

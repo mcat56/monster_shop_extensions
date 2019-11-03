@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'a user can see an address show page' do
   before(:each) do
     @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-    @address_1 = @user.addresses.create(address: '234 Orange Ave', city: 'Orangeburg', state: 'NY', zip: '10962')
+    @address_1 = @user.addresses.create(street: '234 Orange Ave', city: 'Orangeburg', state: 'NY', zip: '10962')
 
     visit '/'
     click_link 'Login'

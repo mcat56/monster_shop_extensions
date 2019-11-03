@@ -87,7 +87,7 @@ describe 'Login' do
   describe "as an Admin User" do
     it "can login with valid credentials" do
       admin_user = User.create!(name: 'Sabrina', email: 'spellcaster23@gmail.com', password: 'salem', role: 3)
-      address = admin_user.addresses.create!(address: '66 Witches Way', city: 'Greendale', state: 'West Virginia', zip: '26210')
+      address = admin_user.addresses.create!(street: '66 Witches Way', city: 'Greendale', state: 'West Virginia', zip: '26210')
       visit '/'
 
       click_link 'Login'
