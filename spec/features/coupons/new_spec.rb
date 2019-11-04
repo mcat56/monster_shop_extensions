@@ -37,6 +37,10 @@ describe 'a merchant can create coupons' do
     coupon = Coupon.last
 
     expect(page).to have_css("#coupon-#{coupon.id}")
+    within "#coupon-#{coupon.id}" do
+      expect(page).to have_content('Name: SUMMER18')
+      expect(page).to have_content('Percent: 0.2')
+    end 
   end
   it 'cannot add coupon without filling out all fields' do
     within '#coupons' do

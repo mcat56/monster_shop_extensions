@@ -6,7 +6,7 @@
 <% @coupons.each do |coupon| %>
   <section id='coupon-<%= coupon.id %>'>
     <p>Name: <%= coupon.name %></p>
-    <p>Discount: <%= coupon.percent %></p>
+    <p>Percent: <%= coupon.percent %></p>
     <%= link_to 'Edit Coupon', "/merchant/coupons/#{coupon.id}/edit" %>
     <%= link_to 'Delete Coupon', "/merchant/coupons/#{coupon.id}", method: :delete %>
   </section>
