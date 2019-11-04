@@ -18,7 +18,7 @@ describe 'admins can disable merchants from merchant index page' do
     @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, status: 'disabled')
     @knit_wit = Merchant.create(name: "Knit Wit", address: '123 Main St.', city: 'Denver', state: 'CO', zip: "80218")
 
-    admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+    admin = User.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
 
     visit '/'
     click_link 'Login'

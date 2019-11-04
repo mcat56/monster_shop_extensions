@@ -36,7 +36,7 @@ class Merchant < ApplicationRecord
   end
 
   def distinct_cities
-    item_orders.distinct.joins(order: :user).where("users.is_active = true").pluck("orders.city")
+    item_orders.distinct.joins(order: :address).joins(order: :user).where("users.is_active = true").pluck("addresses.city")
   end
 
 end

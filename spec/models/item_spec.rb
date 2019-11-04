@@ -42,18 +42,34 @@ describe Item, type: :model do
     end
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
-
-      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+      order = user.orders.create(name: 'Meg', address: address_1)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2, merchant: @bike_shop)
       expect(@chain.no_orders?).to eq(false)
+    end
+    it 'deactivate' do
+      expect(@chain.active?).to eq(true)
+
+      @chain.deactivate
+      @chain.reload
+      expect(@chain.active?).to eq(false)
+    end
+    it 'activate' do
+      @chain.deactivate
+      @chain.reload
+      expect(@chain.active?).to eq(false)
+
+      @chain.activate
+      @chain.reload
+      expect(@chain.active?).to eq(true)
     end
   end
 
   describe "class methods" do
     it "top five items" do
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
-
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -69,9 +85,9 @@ describe Item, type: :model do
       @tennis_ball = @brian.items.create(name: "Tennis Ball", description: "Fido and I love playing with this frisbee at the park.", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 28)
       @dog_shampoo = @brian.items.create(name: "Dog Shampoo", description: "Fido and I love playing with this frisbee at the park.", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 28)
 
-      order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = @user.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-      order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+      order_1 = @user.orders.create!(name: 'Meg', address: address_1)
+      order_2 = @user.orders.create!(name: 'Brian', address: address_1)
+      order_3 = @user.orders.create!(name: 'Mike', address: address_1)
 
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
@@ -93,7 +109,8 @@ describe Item, type: :model do
     end
 
     it "bottom five items" do
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
@@ -110,9 +127,9 @@ describe Item, type: :model do
       @tennis_ball = @brian.items.create(name: "Tennis Ball", description: "Fido and I love playing with this frisbee at the park.", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 28)
       @dog_shampoo = @brian.items.create(name: "Dog Shampoo", description: "Fido and I love playing with this frisbee at the park.", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 28)
 
-      order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = @user.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-      order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+      order_1 = @user.orders.create!(name: 'Meg', address: address_1)
+      order_2 = @user.orders.create!(name: 'Brian', address: address_1)
+      order_3 = @user.orders.create!(name: 'Mike', address: address_1)
 
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 10, merchant: @brian)
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)

@@ -3,17 +3,17 @@
   <table>
     <tr>
       <th>Name</th>
-      <th>Address</th>
+      <th>Street</th>
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
     </tr>
     <tr>
       <td><p><%= @order.name %> </p></td>
-      <td><p><%= @order.address %> </p></td>
-      <td><p><%= @order.city %> </p></td>
-      <td><p><%= @order.state %> </p></td>
-      <td><p><%= @order.zip %> </p></td>
+      <td><p><%= @order.address.street %> </p></td>
+      <td><p><%= @order.address.city %> </p></td>
+      <td><p><%= @order.address.state %> </p></td>
+      <td><p><%= @order.address.zip %> </p></td>
     </tr>
   </table>
 </section>
@@ -60,5 +60,10 @@
 </section>
 
 <% if @order.status == 'pending' || @order.status == 'packaged' %>
+  <% if current_user.addresses.nil? %>
+    <p>Cannot update order without an existing address. Click to  <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new"  %>   </p>
+  <% else %>
+    <%= link_to 'Update with Existing Address', "/orders/#{@order.id}/edit?address=existing" %>
+  <% end %>
   <%= link_to 'Cancel Order', "/cancel/#{@order.id}", method: :delete  %>
 <% end %>

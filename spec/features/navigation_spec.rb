@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor.' do
     it "I see a nav bar with links to all pages" do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
       visit '/merchants'
 
       within 'nav' do
@@ -72,7 +72,7 @@ RSpec.describe 'Site Navigation' do
 
   describe 'As a User.' do
     it 'I see the navbar with links with profile and Log Out, not login or register' do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
       visit '/'
 
@@ -101,7 +101,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can't visit pages I'm not authorized for" do
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
       visit '/'
       click_link 'Login'
 
@@ -125,7 +125,7 @@ RSpec.describe 'Site Navigation' do
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
 
-      merchant = meg.users.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
+      merchant = meg.users.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
 
       visit '/'
       click_link 'Login'
@@ -155,7 +155,7 @@ RSpec.describe 'Site Navigation' do
     it "I can't visit pages I'm not authorized for" do
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
-      merchant = meg.users.create(name: 'Ross', address: '56 HairGel Ave', city: 'Las Vegas', state: 'Nevada', zip: '65041', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
+      merchant = meg.users.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
       visit '/'
       click_link 'Login'
 
@@ -174,7 +174,7 @@ RSpec.describe 'Site Navigation' do
   describe 'As an Admin' do
     it "I see the regular navbar with addition of the 'Admin Dashboard' and 'All Users' links" do
 
-      admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+      admin = User.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
       visit '/'
       click_link 'Login'
 
@@ -204,7 +204,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I can't visit pages I'm not authorized for" do
-      admin = User.create(name: 'Monica', address: '75 Chef Ave', city: 'Utica', state: 'New York', zip: '45827', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
+      admin = User.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 3)
       visit '/'
       click_link 'Login'
 

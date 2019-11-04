@@ -89,11 +89,12 @@ RSpec.describe "Items Index Page" do
     end
 
     it "I can see an area with statistics that displays top 5 most popular items and bottom 5 least popular items" do
-      @user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
-      order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = @user.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-      order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+      order_1 = @user.orders.create!(name: 'Meg', address: @address_1) 
+      order_2 = @user.orders.create!(name: 'Brian', address: @address_1)
+      order_3 = @user.orders.create!(name: 'Mike', address: @address_1)
 
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg )
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg )

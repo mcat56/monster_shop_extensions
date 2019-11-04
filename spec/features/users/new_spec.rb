@@ -10,7 +10,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '56 Jungle Lane'
+    fill_in :street, with: '56 Jungle Lane'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'New York'
     fill_in :zip, with: '10012'
@@ -24,6 +24,7 @@ describe 'Register' do
 
     expect(current_path).to eq("/profile/#{new_user.id}")
     expect(page).to have_content('You have registered successfully! You are now logged in as Marcel.')
+    expect(page).to have_content('home')
     expect(page).to have_content('Hello, Marcel!')
     expect(page).to have_content('Address: 56 Jungle Lane')
     expect(page).to have_content('City: New York')
@@ -38,23 +39,19 @@ describe 'Register' do
 
     expect(current_path).to eq('/register')
 
-    fill_in :name, with: 'Marcel'
-    fill_in :address, with: ' '
-    fill_in :city, with: 'New York'
-    fill_in :state, with: ' '
-    fill_in :zip, with: '10012'
-    fill_in :email, with: 'markymonkey23@gmail.com'
+    fill_in :name, with: ''
+    fill_in :email, with: ''
     fill_in :password, with: 'bananarama'
     fill_in :password_confirmation, with: 'bananarama'
 
     click_button 'Complete Registration'
 
     expect(current_path).to eq('/users')
-    expect(page).to have_content("Address can't be blank and State can't be blank")
+    expect(page).to have_content("Name can't be blank and Email can't be blank")
   end
 
   it "cannot register a new user without a unique email" do
-    user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+    user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
     visit '/'
 
@@ -63,7 +60,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '953 Sunshine Ave'
+    fill_in :street, with: '953 Sunshine Ave'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'Hawaii'
     fill_in :zip, with: '10012'
@@ -77,7 +74,7 @@ describe 'Register' do
     expect(page).to have_content('Email has already been taken')
 
     expect(find_field('Name').value).to eq('Marcel')
-    expect(find_field('Address').value).to eq('953 Sunshine Ave')
+    expect(find_field('Street').value).to eq('953 Sunshine Ave')
     expect(find_field('City').value).to eq('New York')
     expect(find_field('State').value).to eq('Hawaii')
     expect(find_field('Zip').value).to eq('10012')
@@ -93,7 +90,7 @@ describe 'Register' do
     expect(current_path).to eq('/register')
 
     fill_in :name, with: 'Marcel'
-    fill_in :address, with: '953 Sunshine Ave'
+    fill_in :street, with: '953 Sunshine Ave'
     fill_in :city, with: 'New York'
     fill_in :state, with: 'Hawaii'
     fill_in :zip, with: '10012'
@@ -105,5 +102,34 @@ describe 'Register' do
 
     expect(current_path).to eq('/users')
     expect(page).to have_content("Password confirmation doesn't match Password")
+  end
+
+  it 'registration creates default home address' do
+    visit '/'
+
+    click_link 'Register'
+
+    expect(current_path).to eq('/register')
+
+    fill_in :name, with: 'Marcel'
+    fill_in :street, with: '56 Jungle Lane'
+    fill_in :city, with: 'New York'
+    fill_in :state, with: 'New York'
+    fill_in :zip, with: '10012'
+    fill_in :email, with: 'markymonkey23@gmail.com'
+    fill_in :password, with: 'bananarama'
+    fill_in :password_confirmation, with: 'bananarama'
+
+    click_button 'Complete Registration'
+
+    new_user = User.last
+
+    address = new_user.addresses.first
+    expect(address.nickname).to eq('home')
+    expect(address.street).to eq('56 Jungle Lane')
+    expect(address.city).to eq('New York')
+    expect(address.state).to eq('New York')
+    expect(address.zip).to eq('10012')
+
   end
 end

@@ -67,6 +67,6 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.permit(:name, :city, :address, :city, :state, :zip, :email, :password, :password_confirmation, :merchant, :role)
+    params.permit(:name, :city, :street, :city, :state, :zip, :email, :password, :password_confirmation, :merchant, :role)
   end
 end

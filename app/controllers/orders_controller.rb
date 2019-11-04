@@ -5,6 +5,18 @@ class OrdersController <ApplicationController
   end
 
   def new
+    @order = Order.new
+  end
+
+  def edit
+  end
+
+  def update
+    order = Order.find(params[:id])
+    order.update(order_hash)
+
+    flash[:success] = 'Order information updated'
+    redirect_to '/profile/orders'
   end
 
   def show
@@ -13,7 +25,7 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
-    order = user.orders.create(order_params)
+    order = user.orders.create(order_hash)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -26,9 +38,6 @@ class OrdersController <ApplicationController
       session.delete(:cart)
       flash[:success] = 'Your order has been placed!'
       redirect_to "/profile/orders/#{order.id}"
-    else
-      flash[:notice] = "Please complete address form to create an order."
-      render :new
     end
   end
 
@@ -38,7 +47,7 @@ class OrdersController <ApplicationController
     order.update_attributes(:status => 'cancelled')
 
     order.item_orders.each do |item_order|
-      item_order.update_attributes(:status => 0)
+      item_order.update_attributes(:status => 2)
 
       if status == 'packaged'
         item = Item.find(item_order.item_id)
@@ -54,7 +63,16 @@ class OrdersController <ApplicationController
 
   private
 
+  def order_hash
+    order_hash = {}
+    address = Address.find(order_params[:address])
+    order_hash = {
+      name: order_params[:name],
+      address: address
+    }
+  end
+
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    params.permit(:name, :address)
   end
 end

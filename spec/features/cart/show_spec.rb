@@ -59,9 +59,9 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content('You must login or register to check out.')
 
-        user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+        user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
         click_link 'Login'
-        
+
         fill_in :email, with: user.email
         fill_in :password, with: user.password
         click_button 'Log In'

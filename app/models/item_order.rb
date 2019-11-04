@@ -5,7 +5,7 @@ class ItemOrder < ApplicationRecord
   belongs_to :order
   belongs_to :merchant
 
-  enum status: %w(pending fulfilled)
+  enum status: %w(pending fulfilled cancelled)
 
   def subtotal
     price * quantity

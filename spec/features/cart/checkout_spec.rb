@@ -15,7 +15,6 @@ RSpec.describe 'Cart show' do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-      @items_in_cart = [@paper,@tire,@pencil]
     end
 
     it 'if I am not logged in I cannot checkout' do
@@ -27,7 +26,9 @@ RSpec.describe 'Cart show' do
     end
     it 'User can checkout if they are logged in' do
       visit '/'
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
       click_link 'Login'
 
       fill_in :email, with: user.email
@@ -35,19 +36,35 @@ RSpec.describe 'Cart show' do
       click_button 'Log In'
 
       visit "/cart"
-      click_link "Checkout"
+      click_link "Checkout with Existing Address"
 
       expect(current_path).to eq("/orders/new")
-
-
     end
+    it 'user cannot checkout with an address' do
+      visit '/'
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
+      click_link 'Login'
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_button 'Log In'
+      visit '/cart'
+      expect(page).to have_content('You cannot checkout without an existing address. Click link to Add Address')
+      expect(page).to_not have_link("Checkout with Existing Address")
+
+      click_link 'Add Address'
+
+      expect(current_path).to eq("/users/#{user.id}/addresses/new")
+    end
   end
 
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do
       visit '/'
-      user = User.create(name: 'Patti', address: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701', email: 'pattimonkey34@gmail.com', password: 'banana')
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
       click_link 'Login'
 
       fill_in :email, with: user.email
@@ -56,8 +73,7 @@ RSpec.describe 'Cart show' do
 
       visit "/cart"
 
-      expect(page).to_not have_link("Checkout")
+      expect(page).to_not have_link("Checkout with Existing Address")
     end
   end
-
 end
