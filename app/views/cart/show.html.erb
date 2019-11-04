@@ -55,8 +55,9 @@
   <% else %>
     <% if current_user.addresses.empty? %>
       <p>You cannot checkout without an existing address. Click link to <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new" %></p>
+    <% else %>
+      <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
     <% end %>
-    <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
   <% end %>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>

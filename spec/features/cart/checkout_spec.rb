@@ -15,7 +15,6 @@ RSpec.describe 'Cart show' do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-      @items_in_cart = [@paper,@tire,@pencil]
     end
 
     it 'if I am not logged in I cannot checkout' do
@@ -41,7 +40,23 @@ RSpec.describe 'Cart show' do
 
       expect(current_path).to eq("/orders/new")
     end
+    it 'user cannot checkout with an address' do
+      visit '/'
+      user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
 
+      click_link 'Login'
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_button 'Log In'
+      visit '/cart'
+      expect(page).to have_content('You cannot checkout without an existing address. Click link to Add Address')
+      expect(page).to_not have_link("Checkout with Existing Address")
+
+      click_link 'Add Address'
+
+      expect(current_path).to eq("/users/#{user.id}/addresses/new")
+    end
   end
 
   describe 'When I havent added items to my cart' do
@@ -61,5 +76,4 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout with Existing Address")
     end
   end
-
 end
