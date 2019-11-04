@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   resources :merchants do
     resources :items, only: [:index, :new, :create]
-    resources :coupons
   end
 
   resources :items, except: [:new] do
@@ -64,6 +63,8 @@ Rails.application.routes.draw do
     get '/merchants/:merchant_id/items', to: 'merchant/items#index'
   end
 
+
+
   namespace :merchant do
     get '/', to: 'dashboard#show'
 
@@ -79,6 +80,9 @@ Rails.application.routes.draw do
     get '/items/:item_id/activate', to: 'items#update_status'
     get '/orders/:order_id', to: 'orders#show'
     get '/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
+
+    resources :coupons
+
   end
 
 end
