@@ -8,6 +8,7 @@ RSpec.describe 'As a Merchant User', type: :feature do
       @merchant_admin = @bike_shop.users.create(name: 'Ross', email: 'dinosaurs_rule@gmail.com', password: 'rachel', role: 2)
       @review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       visit '/'
       click_link 'Login'
@@ -34,7 +35,7 @@ RSpec.describe 'As a Merchant User', type: :feature do
     end
 
     it 'I can not delete items with orders' do
-      order_1 = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218)
+      order_1 = @user.orders.create!(name: 'Meg', street: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80218, address: @address_1) 
       order_1.item_orders.create!(item: @chain, price: @chain.price, quantity: 2, merchant: @bike_shop)
 
       visit "/items/#{@chain.id}"

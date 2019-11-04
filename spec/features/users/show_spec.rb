@@ -4,6 +4,7 @@ describe "As a regular User" do
   describe "When I visit my profile page" do
     before :each do
       @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @address_1 = @user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -20,9 +21,9 @@ describe "As a regular User" do
     end
 
     it 'can link to order show page' do
-      order_1 = @user.orders.create!(name: 'Richy Rich', street: '102 Main St', city: 'NY', state: 'New York', zip: '10221' )
-      order_2 = @user.orders.create!(name: 'Alice Wonder', street: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221' )
-      order_3 = @user.orders.create!(name: 'Sonny Moore', street: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221' )
+      order_1 = @user.orders.create!(name: 'Richy Rich', street: '102 Main St', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
+      order_2 = @user.orders.create!(name: 'Alice Wonder', street: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
+      order_3 = @user.orders.create!(name: 'Sonny Moore', street: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
 
 
       visit "/profile/#{@user.id}"

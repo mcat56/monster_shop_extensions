@@ -36,9 +36,10 @@ describe Merchant, type: :model do
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
 
-      order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, address: address_1)
       item_order_1 = order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
 
       expect(@meg.no_orders?).to eq(false)
@@ -58,11 +59,11 @@ describe Merchant, type: :model do
 
     it 'distinct_cities' do
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-
+      address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
       chain = @meg.items.create(name: "Chain", description: "It'll never break!", price: 40, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 22)
-      order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = user.orders.create!(name: 'Brian', street: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033)
-      order_3 = user.orders.create!(name: 'Dao', street: '123 Mike Ave', city: 'Denver', state: 'CO', zip: 17033)
+      order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, address: address_1) 
+      order_2 = user.orders.create!(name: 'Brian', street: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033, address: address_1) 
+      order_3 = user.orders.create!(name: 'Dao', street: '123 Mike Ave', city: 'Denver', state: 'CO', zip: 17033, address: address_1) 
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
       order_2.item_orders.create!(item: chain, price: chain.price, quantity: 2, merchant: @meg)
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)

@@ -4,6 +4,7 @@ RSpec.describe 'merchant show page', type: :feature do
   describe 'As a user' do
     before :each do
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+      @address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
@@ -12,9 +13,9 @@ RSpec.describe 'merchant show page', type: :feature do
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 20, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
-      @order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      @order_2 = user.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-      @order_3 = user.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+      @order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, address: @address_1) 
+      @order_2 = user.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, address: @address_1) 
+      @order_3 = user.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, address: @address_1) 
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg )
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, merchant: @brian )

@@ -10,7 +10,9 @@ describe 'As a Merchant User' do
     @shifter = @meg.items.create(name: "Shimano Shifters", description: "It'll always shift!", active?: false, price: 180, image: "https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg", inventory: 2)
 
     user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
-    @order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+    address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+
+    @order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, address: address_1) 
 
     @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
 

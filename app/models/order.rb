@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :address, optional: true
+  belongs_to :address
 
   validates_presence_of :name, :street, :city, :state, :zip, :status
 

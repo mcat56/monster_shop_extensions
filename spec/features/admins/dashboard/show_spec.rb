@@ -6,6 +6,9 @@ RSpec.describe "admin dashboard" do
     @user_1 = User.create(name: 'Richy Rich', email: "young_money99@gmail.com", password: "momoneymoprobz")
     @user_2 = User.create(name: 'Alice Wonder', email: "alice_in_the_sky@gmail.com", password: "cheshirecheezin")
     @user_3 = User.create(name: 'Sonny Moore', email: "its_always_sonny@gmail.com", password: "beatz")
+    @address_1 = @user_1.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
+    @address_2 = @user_2.addresses.create(nickname: 'work', street: '65 Work Street', city: 'Orangeburg', state: 'NY', zip: '10962')
+    @address_3 = @user_3.addresses.create(nickname: 'parents', street: '2034 Nostalgia Place', city: 'Nyack', state: 'NY', zip: '10960')
 
     suite_deal= Merchant.create(name: "Suite Deal Home Goods", address: '1280 Park Ave', city: 'Denver', state: 'CO', zip: "80202")
     knit_wit = Merchant.create(name: "Knit Wit", address: '123 Main St.', city: 'Denver', state: 'CO', zip: "80218")
@@ -24,10 +27,10 @@ RSpec.describe "admin dashboard" do
 
 
 
-    @order_1 = @user_1.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'packaged')
-    @order_2 = @user_2.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-    @order_3 = @user_3.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'shipped')
-    @order_4 = @user_3.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'cancelled')
+    @order_1 = @user_1.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'packaged', address: @address_1)
+    @order_2 = @user_2.orders.create!(name: 'Brian', street: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, address: @address_2)
+    @order_3 = @user_3.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'shipped', address: @address_3)
+    @order_4 = @user_3.orders.create!(name: 'Mike', street: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 'cancelled', address: @address_3)
 
     @order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, merchant: pawty_city)
     @order_2.item_orders.create!(item: dog_bone, price: dog_bone.price, quantity: 2, merchant: dog_shop)
