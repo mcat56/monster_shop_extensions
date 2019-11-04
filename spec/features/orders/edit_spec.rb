@@ -20,9 +20,9 @@ describe 'a user can edit an order' do
     shifter = bike_shop.items.create(name: "Shimano Shifters", description: "It'll always shift!", active?: false, price: 50.00, image: "https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg", inventory: 4)
 
 
-    @order_1 = @user.orders.create!(name: 'Richy Rich', street: '102 Main St', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
-    @order_2 = @user_2.orders.create!(name: 'Alice Wonder', street: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221', address: @address_3)
-    order_3 = @user.orders.create!(name: 'Sonny Moore', street: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221', address: @address_2) 
+    @order_1 = @user.orders.create!(name: 'Richy Rich', address: @address_1)
+    @order_2 = @user_2.orders.create!(name: 'Alice Wonder', address: @address_3)
+    order_3 = @user.orders.create!(name: 'Sonny Moore', address: @address_2)
 
     visit "/profile/orders/#{@order_1.id}"
   end
@@ -37,9 +37,9 @@ describe 'a user can edit an order' do
     expect(current_path).to eq('/profile/orders')
     expect(page).to have_content('Order information updated')
     expect(@order_1.name).to eq('Patti')
-    expect(@order_1.street).to eq('65 Work Street')
-    expect(@order_1.city).to eq('Orangeburg')
-    expect(@order_1.state).to eq('NY')
-    expect(@order_1.zip).to eq('10962')
+    expect(@order_1.address.street).to eq('65 Work Street')
+    expect(@order_1.address.city).to eq('Orangeburg')
+    expect(@order_1.address.state).to eq('NY')
+    expect(@order_1.address.zip).to eq('10962')
   end
 end

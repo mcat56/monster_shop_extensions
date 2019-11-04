@@ -67,10 +67,6 @@ ActiveRecord::Schema.define(version: 20191103163119) do
 
   create_table "orders", force: :cascade do |t|
     t.string "name"
-    t.string "street"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

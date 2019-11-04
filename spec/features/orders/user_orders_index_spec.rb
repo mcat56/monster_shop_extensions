@@ -17,9 +17,9 @@ describe 'As a registered user I am sent to my orders page after creating an ord
     shifter = bike_shop.items.create(name: "Shimano Shifters", description: "It'll always shift!", active?: false, price: 50.00, image: "https://images-na.ssl-images-amazon.com/images/I/4142WWbN64L._SX466_.jpg", inventory: 4)
 
 
-    order_1 = @user.orders.create!(name: 'Richy Rich', street: '102 Main St', city: 'NY', state: 'New York', zip: '10221', address: @address_1) 
-    order_2 = @user.orders.create!(name: 'Alice Wonder', street: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221', address: @address_1) 
-    order_3 = @user.orders.create!(name: 'Sonny Moore', street: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221', address: @address_1) 
+    order_1 = @user.orders.create!(name: 'Richy Rich', address: @address_1) 
+    order_2 = @user.orders.create!(name: 'Alice Wonder', address: @address_1)
+    order_3 = @user.orders.create!(name: 'Sonny Moore', address: @address_1)
 
     tire.item_orders.create(quantity: 2, price: 100.00, order_id: order_1.id, merchant: bike_shop)
     chain.item_orders.create(quantity: 1, price: 25.05, order_id: order_1.id, merchant: bike_shop)

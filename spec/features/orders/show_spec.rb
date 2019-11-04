@@ -36,9 +36,7 @@ RSpec.describe("Order Creation") do
     it 'shows all order information' do
 
       select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
-
       click_button "Create Order"
-
       new_order = Order.last
 
       expect(current_path).to eq("/profile/orders/#{new_order.id}")

@@ -21,9 +21,9 @@ describe "As a regular User" do
     end
 
     it 'can link to order show page' do
-      order_1 = @user.orders.create!(name: 'Richy Rich', street: '102 Main St', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
-      order_2 = @user.orders.create!(name: 'Alice Wonder', street: '346 Underground Blvd', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
-      order_3 = @user.orders.create!(name: 'Sonny Moore', street: '87 Electric Ave', city: 'NY', state: 'New York', zip: '10221', address: @address_1)
+      order_1 = @user.orders.create!(name: 'Richy Rich', address: @address_1)
+      order_2 = @user.orders.create!(name: 'Alice Wonder', address: @address_1)
+      order_3 = @user.orders.create!(name: 'Sonny Moore', address: @address_1)
 
 
       visit "/profile/#{@user.id}"

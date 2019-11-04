@@ -21,8 +21,8 @@ describe 'user can delete addresses' do
     fill_in :password, with: @user.password
     click_button 'Log In'
 
-    order_1 = @user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'pending', address: @address_3 )
-    order_2 = @user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 'shipped', address: @address_2)
+    order_1 = @user.orders.create!(name: 'Meg', status: 'pending', address: @address_3 )
+    order_2 = @user.orders.create!(name: 'Meg', status: 'shipped', address: @address_2)
 
     visit "/profile/#{@user.id}"
     click_link 'My Addresses'

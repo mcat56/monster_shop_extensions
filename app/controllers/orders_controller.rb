@@ -12,10 +12,8 @@ class OrdersController <ApplicationController
   end
 
   def update
-    @order = Order.find(params[:id])
-    @address = Address.find(order_params[:address])
-    order_hash = create_order_hash
-    @order.update(order_hash)
+    order = Order.find(params[:id])
+    order.update(order_hash)
 
     flash[:success] = 'Order information updated'
     redirect_to '/profile/orders'
@@ -27,9 +25,6 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
-
-    @address = Address.find(order_params[:address])
-    order_hash = create_order_hash
     order = user.orders.create(order_hash)
     if order.save
       cart.items.each do |item,quantity|
@@ -68,18 +63,16 @@ class OrdersController <ApplicationController
 
   private
 
-  def create_order_hash
+  def order_hash
     order_hash = {}
-    order_hash[:name] = order_params[:name]
-    order_hash[:street] = @address.street
-    order_hash[:city] = @address.city
-    order_hash[:state] = @address.state
-    order_hash[:zip] = @address.zip
-    order_hash[:address_id] = @address.id
-    order_hash
+    address = Address.find(order_params[:address])
+    order_hash = {
+      name: order_params[:name],
+      address: address
+    }
   end
 
   def order_params
-    params.permit(:name, :nickname, :street, :city, :state, :zip, :address)
+    params.permit(:name, :address)
   end
 end

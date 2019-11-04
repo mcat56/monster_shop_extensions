@@ -63,8 +63,7 @@ RSpec.describe("New Order Page") do
       visit "/cart"
       click_on "Checkout with Existing Address"
 
-      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
-
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address') 
       click_button "Create Order"
 
       new_order = Order.last

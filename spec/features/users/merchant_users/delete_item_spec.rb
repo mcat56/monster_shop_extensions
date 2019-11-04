@@ -12,7 +12,7 @@ describe 'As a Merchant User' do
     user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
     address_1 = user.addresses.create(street: '953 Sunshine Ave', city: 'Honolulu', state: 'Hawaii', zip: '96701')
 
-    @order_1 = user.orders.create!(name: 'Meg', street: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, address: address_1) 
+    @order_1 = user.orders.create!(name: 'Meg', address: address_1) 
 
     @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, merchant: @meg)
 
