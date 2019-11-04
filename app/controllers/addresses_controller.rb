@@ -54,8 +54,11 @@ class AddressesController < ApplicationController
     if pending.empty?
       cancelled = address.orders.select {|order| order.status == 'cancelled'}
       cancelled.each do |cancelled|
+        cancelled.item_orders.each do |item_order|
+          item_order.destroy
+        end
         cancelled.destroy
-      end 
+      end
       address.destroy
       flash[:success] = 'Address deleted'
 
