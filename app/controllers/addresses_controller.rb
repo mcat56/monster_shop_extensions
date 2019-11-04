@@ -45,12 +45,17 @@ class AddressesController < ApplicationController
   def destroy
     address = Address.find(params[:id])
     user = address.user
-    pending = address.orders.select {|order| order.status == 'pending'}
+    select = ['shipped', 'cancelled']
+    pending = address.orders.select {|order| !select.include?(order.status)}
     if !pending.empty?
-      flash[:error] = 'You must update pending orders before deleting this address'
+      flash[:error] = 'You must update orders before deleting this address'
       redirect_to "/profile/orders"
     end
     if pending.empty?
+      cancelled = address.orders.select {|order| order.status == 'cancelled'}
+      cancelled.each do |cancelled|
+        cancelled.destroy
+      end 
       address.destroy
       flash[:success] = 'Address deleted'
 

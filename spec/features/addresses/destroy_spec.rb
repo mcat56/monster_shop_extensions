@@ -15,6 +15,7 @@ describe 'user can delete addresses' do
     @address_1 = @user.addresses.create(street: '234 Orange Ave', city: 'Orangeburg', state: 'NY', zip: '10962')
     @address_2 = @user.addresses.create(nickname: 'work', street: '65 Work Street', city: 'Houston', state: 'TX', zip: '77001')
     @address_3 = @user.addresses.create(nickname: 'parents', street: '2034 Nostalgia Place', city: 'Nyack', state: 'NY', zip: '10960')
+    @address_4 = @user.addresses.create(nickname: 'summer', street: '34 Beach Ave', city: 'Nyack', state: 'NY', zip: '10960')
     visit '/'
     click_link 'Login'
     fill_in :email, with: @user.email
@@ -23,6 +24,7 @@ describe 'user can delete addresses' do
 
     order_1 = @user.orders.create!(name: 'Meg', status: 'pending', address: @address_3 )
     order_2 = @user.orders.create!(name: 'Meg', status: 'shipped', address: @address_2)
+    order_3 = @user.orders.create!(name: 'Meg', status: 'cancelled', address: @address_4)
 
     visit "/profile/#{@user.id}"
     click_link 'My Addresses'
@@ -57,17 +59,18 @@ describe 'user can delete addresses' do
 
     click_link 'Delete Address'
 
-    # click_link 'Update with New Address'
-    #
-    # fill_in :name, with: 'Patti'
-    # fill_in :street, with: '957 Portland Ave'
-    # fill_in :city, with: 'Portland'
-    # fill_in :state, with: 'ME'
-    # fill_in :zip, with: '04019'
-    # click_button 'Update Order'
-
-
     expect(current_path).to eq("/profile/orders")
-    expect(page).to have_content('You must update pending orders before deleting this address')
+    expect(page).to have_content('You must update orders before deleting this address')
+  end
+  it 'user can delete address with cancelled orders' do
+
+    within "#address-#{@address_4.id}" do
+      click_link "#{@address_4.nickname}"
+    end
+
+    click_link 'Delete Address'
+
+    expect(page).to have_content('Address deleted')
+    expect(page).to_not have_css("#address-#{@address_4.id}")
   end
 end

@@ -47,7 +47,7 @@ class OrdersController <ApplicationController
     order.update_attributes(:status => 'cancelled')
 
     order.item_orders.each do |item_order|
-      item_order.update_attributes(:status => 0)
+      item_order.update_attributes(:status => 2)
 
       if status == 'packaged'
         item = Item.find(item_order.item_id)
