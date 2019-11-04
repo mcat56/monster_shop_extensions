@@ -48,6 +48,22 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2, merchant: @bike_shop)
       expect(@chain.no_orders?).to eq(false)
     end
+    it 'deactivate' do
+      expect(@chain.active?).to eq(true)
+
+      @chain.deactivate
+      @chain.reload
+      expect(@chain.active?).to eq(false)
+    end
+    it 'activate' do
+      @chain.deactivate
+      @chain.reload
+      expect(@chain.active?).to eq(false)
+
+      @chain.activate
+      @chain.reload
+      expect(@chain.active?).to eq(true)
+    end
   end
 
   describe "class methods" do
