@@ -1,0 +1,10 @@
+<h1>Coupon Information</h1>
+
+<p>Name: <%= @coupon.name %></p>
+<p>Percent: <%= @coupon.percent %></p>
+
+
+<%= link_to 'Edit Coupon', "/merchant/coupons/#{@coupon.id}/edit" %>
+<% if @coupon.orders.empty? %>
+  <%= link_to 'Delete Coupon', "/merchant/coupons/#{@coupon.id}", method: :delete %>
+<% end %>

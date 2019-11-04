@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :address
+  belongs_to :coupon, optional: true 
 
   validates_presence_of :name, :status
 

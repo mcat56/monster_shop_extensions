@@ -5,6 +5,10 @@ class Merchant::CouponsController < Merchant::BaseController
     @coupons = merchant.coupons
   end
 
+  def show
+    @coupon = Coupon.find(params[:id])
+  end
+
   def new
     @merchant = Merchant.find(current_user.merchant_id)
     @coupon = @merchant.coupons.new
@@ -41,6 +45,12 @@ class Merchant::CouponsController < Merchant::BaseController
     end
   end
 
+  def destroy
+    Coupon.destroy(params[:id])
+
+    flash[:success] = 'Coupon Deleted'
+    redirect_to '/merchant/coupons'
+  end
 
 
   private

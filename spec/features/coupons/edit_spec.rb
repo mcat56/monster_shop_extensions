@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'merchant can edit their coupons' do
+describe 'merchant user can edit their coupons' do
  before(:each) do
    @pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: "80203")
    merchant_admin = @pawty_city.users.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 2)
@@ -21,8 +21,10 @@ describe 'merchant can edit their coupons' do
  it 'can edit from index page' do
 
     within "#coupon-#{@coupon_1.id}" do
-      click_link 'Edit Coupon'
+      click_link "#{@coupon_1.name}"
     end
+ 
+  click_link 'Edit Coupon'
 
   expect(current_path).to eq("/merchant/coupons/#{@coupon_1.id}/edit")
 
@@ -43,8 +45,10 @@ describe 'merchant can edit their coupons' do
   end
   it 'cannot edit without filling out all fields' do
     within "#coupon-#{@coupon_2.id}" do
-      click_link 'Edit Coupon'
+      click_link "#{@coupon_2.name}"
     end
+
+    click_link 'Edit Coupon'
 
     fill_in 'Name', with: ''
     fill_in 'Percent', with: ''

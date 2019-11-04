@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'a merchant can create coupons' do
+describe 'a merchant user can create coupons' do
   before(:each) do
     @pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: "80203")
     merchant_admin = @pawty_city.users.create(name: 'Monica', email: 'cleaner@gmail.com', password: 'monmon', role: 2)
@@ -40,7 +40,7 @@ describe 'a merchant can create coupons' do
     within "#coupon-#{coupon.id}" do
       expect(page).to have_content('Name: SUMMER18')
       expect(page).to have_content('Percent: 0.2')
-    end 
+    end
   end
   it 'cannot add coupon without filling out all fields' do
     within '#coupons' do
