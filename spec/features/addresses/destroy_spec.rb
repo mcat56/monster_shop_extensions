@@ -26,6 +26,9 @@ describe 'user can delete addresses' do
     order_2 = @user.orders.create!(name: 'Meg', status: 'shipped', address: @address_2)
     order_3 = @user.orders.create!(name: 'Meg', status: 'cancelled', address: @address_4)
 
+    tire.item_orders.create(quantity: 2, price: 100.00, order_id: order_3.id, merchant: meg)
+
+
     visit "/profile/#{@user.id}"
     click_link 'My Addresses'
 
