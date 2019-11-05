@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     get '/merchants/:merchant_id/items', to: 'merchant/items#index'
   end
 
+  get '/users/:user_id/orders/:order_id/add_coupon', to: 'orders#add_coupon'
+
 
 
   namespace :merchant do

@@ -19,10 +19,8 @@
     </tr>
   <% end %>
 </table>
+
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
 
-<% if params[:address] == 'new' %>
-  <%= render partial: 'new_address', locals: { path: '/orders', method: :create, button: 'Create Order' } %>
-<% else %>
-  <%= render partial: 'select_address', locals: { path: '/orders', method: :create, button: 'Create Order' } %>
-<% end %>
+
+<%= render partial: 'select_address', locals: { path: '/orders', method: :create, button: 'Create Order' } %>

@@ -26,6 +26,19 @@ class Item < ApplicationRecord
     item_orders.empty?
   end
 
+  def adjusted_price(coupon)
+    if coupon == nil
+      self.price
+    else
+      coupon = Coupon.find(coupon)
+      if coupon.merchant != self.merchant || coupon.enabled? == false
+        self.price
+      else
+        self.price * (1 - coupon.percent)
+      end
+    end
+  end
+
   def self.top_five_items
     Item.joins(:item_orders).select("items.name, items.id, sum(item_orders.quantity) AS total_quantity").group(:id).order("total_quantity desc").limit(5)
   end

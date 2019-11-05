@@ -31,12 +31,17 @@ class OrdersController <ApplicationController
         order.item_orders.create({
           item: item,
           quantity: quantity,
-          price: item.price,
+          price: item.adjusted_price(order.coupon_id),
           merchant: item.merchant
           })
       end
       session.delete(:cart)
-      flash[:success] = 'Your order has been placed!'
+      if order.item_orders.any? {|item_order| item_order.item.price != item_order.item.adjusted_price(order.coupon_id)}
+        message = 'Coupon has been applied'
+      else
+        message = '' 
+      end
+      flash[:success] = 'Your order has been placed!' + message
       redirect_to "/profile/orders/#{order.id}"
     end
   end
@@ -68,11 +73,12 @@ class OrdersController <ApplicationController
     address = Address.find(order_params[:address])
     order_hash = {
       name: order_params[:name],
-      address: address
+      address: address,
+      coupon_id: Coupon.where(name: params[:coupon]).pluck(:id).first
     }
   end
 
   def order_params
-    params.permit(:name, :address)
+    params.permit(:name, :address, :coupon)
   end
 end
