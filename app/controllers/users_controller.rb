@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if verify_user?
+    if current_user
       @user = User.find(params[:user_id])
     else
       render file: "/public/404"
