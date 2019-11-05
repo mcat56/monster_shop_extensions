@@ -20,14 +20,23 @@ RSpec.describe 'Cart show' do
         @items_in_cart = [@paper, @tire, @pencil]
       end
       it 'will display discounted total if coupon applied' do
+        @user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
+        address_1 = @user.addresses.create(street: '234 Orange Ave', city: 'Orangeburg', state: 'NY', zip: '10962')
+
+        visit '/'
+        click_link 'Login'
+        fill_in :email, with: @user.email
+        fill_in :password, with: @user.password
+        click_button 'Log In'
         visit '/cart'
 
         fill_in :apply_coupon, with: 'SUMMER18'
         click_button 'Apply'
 
-        save_and_open_page
-
         expect(page).to have_content('Discounted Total: $97.00')
+
+        click_link 'Checkout with Existing Address'
+
 
       end
       it 'I can empty my cart by clicking a link' do

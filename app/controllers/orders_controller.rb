@@ -6,6 +6,9 @@ class OrdersController <ApplicationController
 
   def new
     @order = Order.new
+    if params[:coupon]
+      @coupon = Coupon.find(params[:coupon]) 
+    end
   end
 
   def edit
