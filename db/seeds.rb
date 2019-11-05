@@ -32,7 +32,7 @@ suite_deal= Merchant.create(name: "Suite Deal Home Goods", address: '1280 Park A
 knit_wit = Merchant.create(name: "Knit Wit", address: '123 Main St.', city: 'Denver', state: 'CO', zip: "80218")
 a_latte_fun = Merchant.create(name: "A Latte Fun", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: "80210")
 pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: "80203")
-
+coupon_1 = pawty_city.coupons.create!(name: 'dogsrule', percent: 0.5)
 #suite_deal items
 four_pillows = suite_deal.items.create(name: "Fall Pillow Set (4-Pack)", description: "Four fall pillows that will leaf your house feeling festive.", price: 17.00, image: "https://i.imgur.com/lLiFbjC.jpg", inventory: 22)
 blessed_pillows = suite_deal.items.create(name: "Blessed Pillow Set (3-Pack)", description: "These comfy pillows will have you feeling #blessed", price: 30.00, image: "https://i.imgur.com/Q8b4Qob.jpg", inventory: 8)

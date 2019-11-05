@@ -3,6 +3,8 @@ RSpec.describe("New Order Page") do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      coupon_1 = @meg.coupons.create(name: 'SUMMER18', percent: 0.25)
+
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
@@ -63,7 +65,7 @@ RSpec.describe("New Order Page") do
       visit "/cart"
       click_on "Checkout with Existing Address"
 
-      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address') 
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
       click_button "Create Order"
 
       new_order = Order.last
@@ -71,6 +73,22 @@ RSpec.describe("New Order Page") do
       expect(current_path).to eq("/profile/orders/#{new_order.id}")
       expect(page).to have_link('Cart: 0')
       expect(page).to have_content('Your order has been placed!')
+    end
+    it 'adds coupon if merchant item is in order' do
+      visit "/cart"
+      click_on "Checkout with Existing Address"
+
+      select('Home: 953 Sunshine Ave Honolulu Hawaii 96701', from: 'address')
+      fill_in 'Coupon', with: 'SUMMER18'
+
+      click_button "Create Order"
+      new_order = Order.last
+
+      expect(page).to have_link('Cart: 0')
+      expect(page).to have_content('Your order has been placed!')
+      expect(page).to have_content('Coupon has been applied')
+      expect(current_path).to eq("/profile/orders/#{new_order.id}")
+      expect(page).to have_content('Total: $117.00')
     end
     it 'I cant create order without an address' do
       click_link 'Log Out'

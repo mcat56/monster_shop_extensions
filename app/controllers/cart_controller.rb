@@ -14,6 +14,10 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
+    if params[:coupon]
+      @coupon = Coupon.where(name: params[:apply_coupon]).pluck(:id).first
+    end
+
   end
 
   def empty

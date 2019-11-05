@@ -1,0 +1,16 @@
+<h1>Manage Your Coupons</h1>
+
+<h2>Coupon Limit: 5</h2>
+
+
+<% @coupons.each do |coupon| %>
+  <section id='coupon-<%= coupon.id %>'>
+    <p>Name: <%= link_to coupon.name, "/merchant/coupons/#{coupon.id}" %></p>
+    <p>Percent: <%= coupon.percent %></p>
+    <p>Enabled?: <%= coupon.enabled? %>  </p>
+  </section>
+<% end %>
+
+<% if @coupons.length < 5 %>
+  <%= link_to 'Add a Coupon', '/merchant/coupons/new' %>
+<% end %>

@@ -35,6 +35,18 @@ describe 'Login' do
       expect(current_path).to eq('/login')
       expect(page).to have_content('Credentials were incorrect.')
     end
+    it 'cannot login with an email that has not been  registered' do
+      visit '/'
+
+      click_link 'Login'
+
+      fill_in :email, with: 'wheriswaldo@gmail.com'
+      fill_in :password, with: 'nobodyknows'
+      click_button 'Log In'
+
+      expect(current_path).to eq('/login')
+      expect(page).to have_content('Please register')
+    end
     it 'redirects to profile if I am already logged in' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 

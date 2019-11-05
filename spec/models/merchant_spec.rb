@@ -13,6 +13,7 @@ describe Merchant, type: :model do
     it { should have_many :items }
     it { should have_many :item_orders }
     it { should have_many :users }
+    it { should have_many :coupons }
   end
 
   describe 'instance methods' do

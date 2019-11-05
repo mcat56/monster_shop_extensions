@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
   patch "/cart/:item_id/:increment_decrement", to: "cart#increment_decrement"
+  post '/cart', to: "cart#show"
 
 
   get '/profile/orders', to: 'orders#index'
@@ -63,9 +64,13 @@ Rails.application.routes.draw do
     get '/merchants/:merchant_id/items', to: 'merchant/items#index'
   end
 
+  get '/users/:user_id/orders/:order_id/add_coupon', to: 'orders#add_coupon'
+
+
+
   namespace :merchant do
     get '/', to: 'dashboard#show'
-
+    get '/coupons/:id/toggle_coupon', to: 'coupons#toggle'
     # resources :items
     get '/items', to: 'items#index'
     get '/items/new', to: 'items#new'
@@ -78,6 +83,9 @@ Rails.application.routes.draw do
     get '/items/:item_id/activate', to: 'items#update_status'
     get '/orders/:order_id', to: 'orders#show'
     get '/item_orders/:item_order_id/fulfill', to: 'item_orders#fulfill'
+
+    resources :coupons
+
   end
 
 end

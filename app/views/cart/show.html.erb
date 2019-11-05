@@ -4,11 +4,11 @@
 <center>
 <table class = "cart-items">
   <tr>
-    <th>Item</th>
-    <th>Sold By</th>
-    <th>Price</th>
-    <th>Quantity</th>
-    <th>Subtotal</th>
+    <th id='item'>Item</th>
+    <th id='sold_by'>Sold By</th>
+    <th id='price'>Price</th>
+    <th id='quantity'>Quantity</th>
+    <th id='subtotal'>Subtotal</th>
   </tr>
   <% @items.each do |item,quantity| %>
     <tr id= "cart-item-<%=item.id%>">
@@ -39,7 +39,7 @@
               <%= link_to "-", "/cart/#{item.id}/decrement", method: :patch %>
             <% end %>
           </p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+          <p><%= link_to "Remove", "/cart/#{item.id}", method: :delete %></p>
         </center>
         </td>
       <td>
@@ -48,7 +48,15 @@
     </tr>
   <% end %>
 </table>
+<%= form_tag '/cart?coupon=true' do %>
+  <%= label_tag :apply_coupon %>
+  <%= text_field_tag :apply_coupon, @coupon.nil? ? ' ' : @coupon %>
+  <%= submit_tag 'Apply' %>
+<% end %>
   <p>Total: <%= number_to_currency(cart.total) %></p>
+  <% if @coupon %>
+    <p>Discounted Total:  <%= number_to_currency(cart.discounted_total(@coupon)) %></p>
+  <% end %>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if !current_user %>
     <h4>You must  <%= link_to 'login', '/login' %> or <%= link_to 'register', '/register' %>  to check out.</h4>
@@ -56,7 +64,11 @@
     <% if current_user.addresses.empty? %>
       <p>You cannot checkout without an existing address. Click link to <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new" %></p>
     <% else %>
-      <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
+      <% if @coupon %>
+        <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing&coupon=#{@coupon}" %></p>
+      <% else %>
+        <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>

@@ -48,6 +48,12 @@
   <% end %>
 </table>
 
+<section id='coupon'>
+  <% if !@order.coupon_id.nil? %>
+    <p>Coupon Applied: <%= @order.coupon.name %></p>
+  <% end %>
+</section>
+
 <p>Order ID: <%= @order.id %></p>
 <section id="datecreated">
   <p> <%= @order.created_at.to_formatted_s(:long_ordinal) %></p>
