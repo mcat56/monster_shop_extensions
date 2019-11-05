@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
 
-  def verify_user?
-    default_user? || current_admin?
-  end
 
   def new
   end

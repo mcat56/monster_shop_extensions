@@ -34,7 +34,7 @@ RSpec.describe 'Cart show' do
         click_button 'Apply'
 
         expect(page).to have_content('Discounted Total: $97.00')
-
+        expect(current_path).to eq('/cart')
         click_link 'Checkout with Existing Address'
 
 
