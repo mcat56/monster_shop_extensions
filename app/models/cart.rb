@@ -32,6 +32,12 @@ class Cart
     end
   end
 
+  def discounted_total(coupon)
+    @contents.sum do |item_id, quantity|
+      Item.find(item_id).adjusted_price(coupon) * quantity
+    end
+  end
+
   def add_quantity(item_id)
     @contents[item_id] += 1
   end
@@ -39,7 +45,7 @@ class Cart
   def subtract_quantity(item_id)
     @contents[item_id] -= 1
   end
-  
+
   def limit_reached?(item_id)
     @contents[item_id] == Item.find(item_id).inventory
   end

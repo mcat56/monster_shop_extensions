@@ -39,7 +39,7 @@
               <%= link_to "-", "/cart/#{item.id}/decrement", method: :patch %>
             <% end %>
           </p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+          <p><%= link_to "Remove", "/cart/#{item.id}", method: :delete %></p>
         </center>
         </td>
       <td>
@@ -48,7 +48,15 @@
     </tr>
   <% end %>
 </table>
+<%= form_tag '/cart?coupon=true' do %>
+  <%= label_tag :apply_coupon %>
+  <%= text_field_tag :apply_coupon, @discounted_total.nil? ? ' ' : @discounted_total %>
+  <%= submit_tag 'Apply' %>
+<% end %>
   <p>Total: <%= number_to_currency(cart.total) %></p>
+  <% if @discounted_total %>
+    <p>Discounted Total:  <%= number_to_currency(@discounted_total) %></p>
+  <% end %>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if !current_user %>
     <h4>You must  <%= link_to 'login', '/login' %> or <%= link_to 'register', '/register' %>  to check out.</h4>

@@ -6,6 +6,7 @@ RSpec.describe 'Cart show' do
       before(:each) do
         @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @coupon_1 = @meg.coupons.create(name: 'SUMMER18', percent: 0.25, enabled?: true)
 
         @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
         @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
@@ -18,7 +19,17 @@ RSpec.describe 'Cart show' do
         click_on "Add To Cart"
         @items_in_cart = [@paper, @tire, @pencil]
       end
+      it 'will display discounted total if coupon applied' do
+        visit '/cart'
 
+        fill_in :apply_coupon, with: 'SUMMER18'
+        click_button 'Apply'
+
+        save_and_open_page
+
+        expect(page).to have_content('Discounted Total: $97.00')
+
+      end
       it 'I can empty my cart by clicking a link' do
         visit '/cart'
         expect(page).to have_link("Empty Cart")
@@ -69,9 +80,7 @@ RSpec.describe 'Cart show' do
         visit '/cart'
 
         expect(page).to_not have_content('You must login or register to check out.')
-
       end
-
     end
   end
   describe "When I haven't added anything to my cart" do
