@@ -25,7 +25,12 @@ class OrdersController <ApplicationController
 
   def create
     user = User.find(session[:user_id])
-    order = user.orders.create(order_hash)
+    if user.orders.any? {|order| order.coupon_id == order_hash[:coupon_id] }
+      order = user.orders.create(order_hash)
+      order.coupon_id = nil
+    else
+      order = user.orders.create(order_hash)
+    end
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -39,7 +44,8 @@ class OrdersController <ApplicationController
       if order.item_orders.any? {|item_order| item_order.item.price != item_order.item.adjusted_price(order.coupon_id)}
         message = 'Coupon has been applied'
       else
-        message = '' 
+        message = ''
+        order.coupon_id = nil
       end
       flash[:success] = 'Your order has been placed!' + message
       redirect_to "/profile/orders/#{order.id}"
