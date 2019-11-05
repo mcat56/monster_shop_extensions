@@ -21,7 +21,7 @@ describe Item, type: :model do
     before(:each) do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
-
+      @coupon_1 = @bike_shop.coupons.create(name: 'rideordie', percent: 0.1)
       @review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       @review_2 = @chain.reviews.create(title: "Cool shop!", content: "They have cool bike stuff and I'd recommend them to anyone.", rating: 4)
       @review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
@@ -40,6 +40,17 @@ describe Item, type: :model do
       expect(top_three).to eq([@review_1,@review_2,@review_5])
       expect(bottom_three).to eq([@review_3,@review_4,@review_5])
     end
+    it 'adjusted price' do
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd', city: 'Denver', state: 'CO', zip: 80203)
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+      expect(@chain.adjusted_price(@coupon_1.id)).to eq(45.0)
+
+      expect(@chain.adjusted_price(nil)).to eq(50.0)
+
+      expect(@tire.adjusted_price(@coupon_1.id)).to eq(100.0)
+    end
+
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
       user = User.create(name: 'Patti', email: 'pattimonkey34@gmail.com', password: 'banana')
