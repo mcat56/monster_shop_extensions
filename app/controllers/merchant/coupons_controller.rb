@@ -52,6 +52,12 @@ class Merchant::CouponsController < Merchant::BaseController
     redirect_to '/merchant/coupons'
   end
 
+  def toggle
+    coupon = Coupon.find(params[:id])
+    coupon.toggle!(:enabled?)
+
+    redirect_to '/merchant/coupons'
+  end
 
   private
 

@@ -2,6 +2,13 @@
 
 <p>Name: <%= @coupon.name %></p>
 <p>Percent: <%= @coupon.percent %></p>
+<p>Enabled?: <%= @coupon.enabled? %>  </p>
+
+<% if @coupon.enabled? == true %>
+  <%= link_to 'Disable', "/merchant/coupons/#{@coupon.id}/toggle_coupon" %>
+<% else %>
+  <%= link_to 'Enable', "/merchant/coupons/#{@coupon.id}/toggle_coupon" %>
+<% end %>
 
 
 <%= link_to 'Edit Coupon', "/merchant/coupons/#{@coupon.id}/edit" %>

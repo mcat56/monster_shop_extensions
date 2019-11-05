@@ -70,7 +70,7 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/', to: 'dashboard#show'
-
+    get '/coupons/:id/toggle_coupon', to: 'coupons#toggle'
     # resources :items
     get '/items', to: 'items#index'
     get '/items/new', to: 'items#new'

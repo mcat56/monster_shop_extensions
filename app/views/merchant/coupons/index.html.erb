@@ -7,6 +7,7 @@
   <section id='coupon-<%= coupon.id %>'>
     <p>Name: <%= link_to coupon.name, "/merchant/coupons/#{coupon.id}" %></p>
     <p>Percent: <%= coupon.percent %></p>
+    <p>Enabled?: <%= coupon.enabled? %>  </p>
   </section>
 <% end %>
 
