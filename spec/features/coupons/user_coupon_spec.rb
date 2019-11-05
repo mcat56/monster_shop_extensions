@@ -36,7 +36,7 @@ describe 'user can apply coupon to order that has those merchant items' do
     click_button 'Log In'
 
   end
-  it 'applies coupon if merchant item is in order coupon is enabled and not used yet' do
+  it 'applies coupon if merchant item is in order coupon is enabled and not used yet and shows which coupon was used' do
     visit "/items/#{@paper.id}"
     click_on "Add To Cart"
     visit "/items/#{@paper.id}"
@@ -59,6 +59,7 @@ describe 'user can apply coupon to order that has those merchant items' do
     expect(page).to have_link('Cart: 0')
     expect(page).to have_content('Your order has been placed!')
     expect(page).to have_content('Coupon has been applied')
+    expect(page).to have_content('Coupon Applied: SUMMER18')
     expect(current_path).to eq("/profile/orders/#{new_order.id}")
     expect(page).to have_content('Total: $117.00')
   end
