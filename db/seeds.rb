@@ -32,7 +32,7 @@ suite_deal= Merchant.create(name: "Suite Deal Home Goods", address: '1280 Park A
 knit_wit = Merchant.create(name: "Knit Wit", address: '123 Main St.', city: 'Denver', state: 'CO', zip: "80218")
 a_latte_fun = Merchant.create(name: "A Latte Fun", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: "80210")
 pawty_city = Merchant.create(name: "Paw-ty City", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: "80203")
-merchant_employee = User.create(name: 'Chandler', email: 'pawty_city@gmail.com', password: 'dogs', role: 1, merchant: pawty_city)
+merchant_employee_2 = User.create(name: 'Chandler', email: 'pawty_city@gmail.com', password: 'dogs', role: 1, merchant: pawty_city)
 
 coupon_1 = pawty_city.coupons.create(name: 'dogsrule', percent: 0.5)
 #suite_deal items
