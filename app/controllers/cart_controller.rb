@@ -14,9 +14,6 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
-    if params[:coupon]
-      @coupon = Coupon.where(name: params[:apply_coupon]).first
-    end
   end
 
   def empty
@@ -26,6 +23,12 @@ class CartController < ApplicationController
 
   def remove_item
     session[:cart].delete(params[:item_id])
+    redirect_to '/cart'
+  end
+
+  def add_coupon
+    session[:coupon] = Coupon.where(name: params[:apply_coupon]).first
+
     redirect_to '/cart'
   end
 
