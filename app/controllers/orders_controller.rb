@@ -6,9 +6,6 @@ class OrdersController <ApplicationController
 
   def new
     @order = Order.new
-    if params[:coupon]
-      @coupon = Coupon.find(params[:coupon]) 
-    end
   end
 
   def edit
@@ -50,7 +47,7 @@ class OrdersController <ApplicationController
         message = ''
         order.coupon_id = nil
       end
-      flash[:success] = 'Your order has been placed!' + message
+      flash[:success] = 'Your order has been placed!' + " " + message
       redirect_to "/profile/orders/#{order.id}"
     end
   end

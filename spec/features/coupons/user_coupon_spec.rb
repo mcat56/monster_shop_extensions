@@ -101,4 +101,24 @@ describe 'user can apply coupon to order that has those merchant items' do
     expect(current_path).to eq("/profile/orders/#{new_order.id}")
     expect(page).to have_content('Total: $142.00')
   end
+  it 'user can continue shopping and coupon will be remembered' do
+    visit "/items/#{@tire.id}"
+    click_on "Add To Cart"
+    visit "/items/#{@pencil.id}"
+    click_on "Add To Cart"
+    visit '/cart'
+
+    fill_in :apply_coupon, with: 'SUMMER18'
+    click_button 'Apply'
+
+    visit "/items/#{@paper.id}"
+    click_on "Add To Cart"
+    visit "/items/#{@paper.id}"
+    click_on "Add To Cart"
+
+    visit '/cart'
+
+    expect(page).to have_content('Discounted Total: $117.00')
+    expect(find_field('Apply coupon').value).to eq 'SUMMER18'
+  end
 end

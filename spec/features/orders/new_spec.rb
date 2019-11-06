@@ -101,7 +101,7 @@ RSpec.describe("New Order Page") do
       click_on "Add To Cart"
 
       visit "/cart"
-
+      
       expect(page).to have_content('You cannot checkout without an existing address. Click link to Add Address')
 
       click_link('Add Address')

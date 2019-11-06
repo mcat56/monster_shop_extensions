@@ -48,14 +48,14 @@
     </tr>
   <% end %>
 </table>
-<%= form_tag '/cart?coupon=true' do %>
+<%= form_tag '/cart' do %>
   <%= label_tag :apply_coupon %>
-  <%= text_field_tag :apply_coupon, @coupon.nil? ? ' ' : @coupon.name %>
+  <%= text_field_tag :apply_coupon, session[:coupon].nil? ? ' ' : session[:coupon]['name']%>
   <%= submit_tag 'Apply' %>
 <% end %>
   <p>Total: <%= number_to_currency(cart.total) %></p>
-  <% if @coupon %>
-    <p>Discounted Total:  <%= number_to_currency(cart.discounted_total(@coupon.id)) %></p>
+  <% if session[:coupon] %>
+    <p>Discounted Total:  <%= number_to_currency(cart.discounted_total(session[:coupon]['id'])) %></p>
   <% end %>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if !current_user %>
@@ -64,8 +64,8 @@
     <% if current_user.addresses.empty? %>
       <p>You cannot checkout without an existing address. Click link to <%= link_to 'Add Address', "/users/#{session[:user_id]}/addresses/new" %></p>
     <% else %>
-      <% if @coupon %>
-        <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing&coupon=#{@coupon.id}" %></p>
+      <% if session[:coupon] %>
+        <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing&coupon=#{session[:coupon]['id']}" %></p>
       <% else %>
         <p><%= link_to 'Checkout with Existing Address', "/orders/new?address=existing" %></p>
       <% end %>

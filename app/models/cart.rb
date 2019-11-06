@@ -3,7 +3,6 @@ class Cart
 
   def initialize(contents)
     @contents = contents
-    @coupon = ''
   end
 
   def add_item(item)

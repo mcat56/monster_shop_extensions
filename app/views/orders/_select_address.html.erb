@@ -7,7 +7,7 @@
   <%= select_tag :address, options_from_collection_for_select(current_user.addresses, 'id', :get_full_address)  %>
 
   <%= label_tag :coupon %>
-  <%= text_field_tag :coupon, @coupon.nil? ? ' ' : @coupon.name %>
+  <%= text_field_tag :coupon, session[:coupon].nil? ? ' ' : session[:coupon][:name] %>
 
   <%= submit_tag button %>
 <% end %>

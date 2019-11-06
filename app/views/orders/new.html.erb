@@ -21,6 +21,9 @@
 </table>
 
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
+<% if session[:coupon] %>
+  <p align = "right">Discounted Total:  <%= number_to_currency(cart.discounted_total(session[:coupon]['id'])) %></p>
+<% end %>
 
 
 <%= render partial: 'select_address', locals: { path: '/orders', method: :create, button: 'Create Order' } %>

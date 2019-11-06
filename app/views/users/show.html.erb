@@ -1,13 +1,13 @@
 <h1>Hello, <%= @user.name %>!</h1>
 
 <% if !@user.orders.empty? %>
-  <%= link_to 'My Orders', "/profile/orders" %>
+  <p align='center'><%= link_to 'My Orders', "/profile/orders" %></p>
 <% end %>
+<p align='center'><%= link_to 'My Addresses', "/users/#{@user.id}/addresses" %></p>
 
-<%= link_to 'My Addresses', "/users/#{@user.id}/addresses" %>
 
 <% @user.addresses.each do |address| %>
-  <section id="address-<%= address.id %>">
+  <section align='center' id="address-<%= address.id %>">
     <h2><%= link_to address.nickname, "/users/#{@user.id}/addresses/#{address.id}" %></h2>
     <p>Address: <%= address.street %></p>
     <p>City: <%= address.city %></p>
@@ -16,9 +16,14 @@
   </section>
 <% end %>
 
-<p>E-mail: <%= @user.email %></p>
-<p>Role: <%= @user.role.gsub('_', ' ').capitalize %></p>
+</br>
+</br>
+<p align='center'>E-mail: <%= @user.email %></p>
+<p align='center'>Role: <%= @user.role.gsub('_', ' ').capitalize %></p>
 
-<%= link_to 'Add an Address', "/users/#{@user.id}/addresses/new" %>
-<%= link_to "Edit Profile", "/profile/#{@user.id}/edit" %>
-<%= link_to "Edit Password", "/profile/#{@user.id}/edit/password" %>
+</br>
+<p align='center'><%= link_to 'Add an Address', "/users/#{@user.id}/addresses/new" %></p>
+</br>
+<p align='center'><%= link_to "Edit Profile", "/profile/#{@user.id}/edit" %></p>
+</br>
+<p align='center'><%= link_to "Edit Password", "/profile/#{@user.id}/edit/password" %></p>
