@@ -3,7 +3,7 @@
   <%= f.text_field :name %>
 
   <%= f.label :percent %>
-  <%= f.number_field :percent %>
+  <%= f.number_field :percent, step: 0.01 %>
 
   <%= f.submit %>
 <% end %>
