@@ -36,8 +36,6 @@ RSpec.describe 'Cart show' do
         expect(page).to have_content('Discounted Total: $97.00')
         expect(current_path).to eq('/cart')
         click_link 'Checkout with Existing Address'
-
-
       end
       it 'I can empty my cart by clicking a link' do
         visit '/cart'
