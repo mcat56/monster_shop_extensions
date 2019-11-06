@@ -45,6 +45,7 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :user_id
     session.delete :cart
+    session.delete :coupon
     @current_user = nil
     flash[:success] = "You have been logged out."
 
