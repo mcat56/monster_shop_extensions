@@ -39,7 +39,7 @@ RSpec.describe "As a Merchant User" do
       fill_in 'Address', with: "1234 New Bike Rd."
       fill_in 'City', with: "Denver"
       fill_in 'State', with: "CO"
-      fill_in 'Zip', with: 80204
+      fill_in 'Zip', with: '80204'
 
       click_button "Update Merchant"
 
@@ -52,11 +52,11 @@ RSpec.describe "As a Merchant User" do
       visit "/merchants/#{@bike_shop.id}"
       click_on "Update Merchant"
 
-      fill_in 'Name', with: ""
+      fill_in 'Name', with: ''
       fill_in 'Address', with: "1234 New Bike Rd."
-      fill_in 'City', with: " "
+      fill_in 'City', with: ''
       fill_in 'State', with: "CO"
-      fill_in 'Zip', with: 80204
+      fill_in 'Zip', with: '80204'
 
       click_button "Update Merchant"
 

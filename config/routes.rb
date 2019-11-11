@@ -2,27 +2,81 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/', to: "welcome#index"
 
-  resources :merchants do
-    resources :items, only: [:index, :new, :create]
-  end
 
-  resources :items, except: [:new] do
-    resources :reviews, only: [:new, :create]
-  end
+  # resources :merchants do
+  #   resources :items, only: [:index, :new, :create]
+  # end
 
-  resources :users do
-    resources :addresses
-  end
+  get '/merchants', to: 'merchants#index'
+  get '/merchants/new', to: 'merchants#new'
+  post '/merchants', to: 'merchants#create'
+  get '/merchants/:id/edit', to: 'merchants#edit'
+  patch '/merchants/:id', to: 'merchants#update', as: 'merchant'
+  delete '/merchants/:id', to: 'merchants#destroy'
+  get '/merchants/:id', to: 'merchants#show'
 
-  resources :reviews, only: [:edit, :update, :destroy]
-  resources :orders
+  get '/merchants/:merchant_id/items', to: 'items#index'
+  get '/merchants/:merchant_id/items/new', to: 'items#new'
+  post '/merchants/:merchant_id/items', to: 'items#create'
+
+
+
+  get '/items', to: 'items#index'
+  post '/items', to: 'items#create'
+  get '/items/:id', to: 'items#show'
+  get '/items/:id/edit', to:'items#edit'
+  patch '/items/:id', to: 'items#update'
+  delete '/items/:id', to: 'items#destroy'
+
+  get '/items/:item_id/reviews/new', to: 'reviews#new'
+  post '/items/:item_id/reviews', to: 'reviews#create'
+
+
+  # resources :items, except: [:new] do
+  #   resources :reviews, only: [:new, :create]
+  # end
+
+  # resources :users do
+  #   resources :addresses
+  # end
+
+  get '/users', to: 'users#index'
+  get '/users/new', to: 'users#new'
+  post '/users', to: 'users#create'
+  get '/users/:id/edit', to: 'users#edit'
+  patch '/users/:id', to: 'users#update'
+  delete '/users/:id', to: 'users#destroy'
+  get '/users/:id', to: 'users#show'
+
+  get '/users/:user_id/addresses/', to: 'addresses#index'
+  get '/users/:user_id/addresses/new', to: 'addresses#new'
+  post '/users/:user_id/addresses', to: 'addresses#create', as: 'user_addresses'
+  get '/users/:user_id/addresses/:id/edit', to: 'addresses#edit'
+  patch '/users/:user_id/addresses/:id', to: 'addresses#update'
+  delete '/users/:user_id/addresses/:id', to: 'addresses#destroy'
+  get '/users/:user_id/addresses/:id', to: 'addresses#show', as: 'user_address'
+
+  # resources :reviews, only: [:edit, :update, :destroy]
+  # resources :orders
+
+  get '/orders', to: 'orders#index'
+  get '/orders/new', to: 'orders#new'
+  post '/orders/', to: 'orders#create'
+  get '/orders/:id/edit', to: 'orders#edit'
+  patch '/orders/:id', to: 'orders#update'
+  delete '/orders/:id', to: 'orders#destroy'
+  get '/orders/:id', to: 'orders#show'
+
+  get '/reviews/:id/edit', to: 'reviews#edit'
+  patch '/reviews/:id', to: 'reviews#update'
+  delete '/reviews/:id', to: 'reviews#destroy'
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
   patch "/cart/:item_id/:increment_decrement", to: "cart#increment_decrement"
-  post '/cart', to: "cart#add_coupon" 
+  post '/cart', to: "cart#add_coupon"
 
 
   get '/profile/orders', to: 'orders#index'
@@ -71,13 +125,14 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: 'dashboard#show'
     get '/coupons/:id/toggle_coupon', to: 'coupons#toggle'
-    # resources :items
-    get '/items', to: 'items#index'
-    get '/items/new', to: 'items#new'
-    post '/items', to: 'items#create'
-    get '/items/:item_id/edit', to: 'items#edit'
-    patch '/items/:item_id', to: 'items#update'
-    delete '/items/:item_id', to: 'items#destroy'
+    
+    resources :items, except: [:show]
+    # get '/items', to: 'items#index'
+    # get '/items/new', to: 'items#new'
+    # post '/items', to: 'items#create'
+    # get '/items/:item_id/edit', to: 'items#edit'
+    # patch '/items/:item_id', to: 'items#update'
+    # delete '/items/:item_id', to: 'items#destroy'
 
     get '/items/:item_id/deactivate', to: 'items#update_status'
     get '/items/:item_id/activate', to: 'items#update_status'

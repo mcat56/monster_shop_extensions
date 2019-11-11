@@ -10,7 +10,7 @@ RSpec.describe "Merchant Items Index Page" do
     end
 
     it 'shows me a list of that merchants items' do
-      visit "merchants/#{@meg.id}/items"
+      visit "/merchants/#{@meg.id}/items"
 
       within "#item-#{@tire.id}" do
         expect(page).to have_content(@tire.name)
